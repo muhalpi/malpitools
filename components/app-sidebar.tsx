@@ -77,7 +77,7 @@ export function AppSidebar() {
               <Link href="/" className="group/brand">
                 <div className="flex aspect-square size-12 items-center justify-center rounded-lg border border-sidebar-border bg-card">
                   <img
-                    src="/malpitools-icon.svg"
+                    src="/malpitools-icon.png"
                     width={64}
                     height={64}
                     alt={`${APP_NAME} logo`}

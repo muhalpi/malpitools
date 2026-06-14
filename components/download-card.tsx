@@ -71,8 +71,8 @@ function DesktopIosCard() {
           </div>
         </div>
         <img
-          src="/delphi-boxes.png"
-          alt="delphi carrying a stack of tool boxes"
+          src="/alpi-boxes.png"
+          alt="Alpi carrying a stack of tool boxes"
           className="absolute right-6 bottom-4 h-[calc(100%+5rem)] w-auto pointer-events-none"
         />
       </div>
@@ -98,8 +98,8 @@ function DesktopCliCard() {
           </div>
         </div>
         <img
-          src="/delphi-cli.png"
-          alt="delphi trapped in a terminal box"
+          src="/alpi-cli.png"
+          alt="Alpi inside a terminal box"
           className="absolute right-6 top-6 h-[calc(100%-2.75rem)] w-auto pointer-events-none"
         />
       </div>
@@ -126,8 +126,8 @@ function MobileTabsCard() {
             <div className="flex flex-col gap-4 p-6 pt-4">
               <div className="flex justify-center pt-2">
                 <img
-                  src="/delphi-boxes.png"
-                  alt="delphi carrying a stack of tool boxes"
+                  src="/alpi-boxes.png"
+                  alt="Alpi carrying a stack of tool boxes"
                   className="h-40 w-auto"
                 />
               </div>
@@ -144,8 +144,8 @@ function MobileTabsCard() {
             <div className="flex flex-col gap-4 p-6 pt-4">
               <div className="flex justify-center pt-2">
                 <img
-                  src="/delphi-cli.png"
-                  alt="delphi trapped in a terminal box"
+                  src="/alpi-cli.png"
+                  alt="Alpi inside a terminal box"
                   className="h-40 w-auto"
                 />
               </div>

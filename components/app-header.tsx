@@ -45,7 +45,7 @@ export function AppHeader() {
         </div>
       ) : (
         <div className="flex items-center gap-2">
-          <img src="/malpitools-icon.svg" width={40} height={40} alt={`${APP_NAME} logo`} className="size-5" />
+          <img src="/malpitools-icon.png" width={40} height={40} alt={`${APP_NAME} logo`} className="size-5" />
           <h1 className="text-sm font-semibold">{APP_NAME}</h1>
         </div>
       )}

@@ -44,7 +44,7 @@ export default function Home() {
         <div className="relative mx-auto max-w-7xl">
           <div className="mb-8 flex items-center gap-3">
             <img
-              src="/malpitools-icon.svg"
+              src="/malpitools-icon.png"
               alt=""
               width={48}
               height={48}
