@@ -364,7 +364,23 @@ export const toolCategories: ToolCategory[] = [
     id: "print-production",
     name: "Print & Production",
     tools: [
-{
+      {
+        id: "merge-pdf",
+        name: "Merge & Organize PDF",
+        description: "Merge PDFs by reordering, rotating, and removing pages",
+        icon: Layers,
+        href: "/tools/merge-pdf",
+        new: true,
+      },
+      {
+        id: "split-pdf",
+        name: "Split PDF",
+        description: "Extract selected pages or split every page into PDFs",
+        icon: Scissors,
+        href: "/tools/split-pdf",
+        new: true,
+      },
+      {
         id: "pdf-preflight",
         name: "PDF Preflight",
         description: "Analyse PDFs for print-readiness issues",

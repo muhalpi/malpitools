@@ -62,6 +62,8 @@ const toolComponents: Record<string, React.ComponentType> = {
   "audio-metadata": dynamic(() => import("@/components/tools/audio-metadata").then(mod => mod.AudioMetadataTool)),
   "audio-trim-cut": dynamic(() => import("@/components/tools/audio-trim-cut").then(mod => mod.AudioTrimCutTool)),
   "html-viewer": dynamic(() => import("@/components/tools/html-viewer").then(mod => mod.HtmlViewerTool)),
+  "merge-pdf": dynamic(() => import("@/components/tools/merge-pdf").then(mod => mod.MergePdfTool)),
+  "split-pdf": dynamic(() => import("@/components/tools/split-pdf").then(mod => mod.SplitPdfTool)),
 };
 
 interface ToolPageProps {

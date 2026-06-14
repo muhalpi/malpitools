@@ -447,11 +447,12 @@ function EditorPanel({
         <div className={cn("relative overflow-hidden bg-[#1f1f1f]", tall ? "h-[680px]" : "h-[560px]")}>
           <pre
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0 z-0 overflow-hidden px-7 py-7 font-mono text-[13px] leading-6"
+            className="pointer-events-none absolute inset-0 z-0 m-0 select-none overflow-hidden px-7 py-7 font-mono text-[13px] leading-6"
           >
             <code
               className="block whitespace-pre-wrap text-slate-50 [overflow-wrap:anywhere]"
               style={{
+                tabSize: 2,
                 transform: `translateY(${-editorScrollTop}px)`,
               }}
             >
@@ -461,7 +462,7 @@ function EditorPanel({
                     {Array.from({ length: line.depth }, (_, depthIndex) => (
                       <span
                         key={depthIndex}
-                        className="absolute inset-y-0 border-l border-slate-600/45"
+                        className="absolute top-0 h-6 border-l border-slate-600/45"
                         style={{ left: `${depthIndex * 2 + 0.85}ch` }}
                       />
                     ))}
@@ -481,7 +482,7 @@ function EditorPanel({
             onChange={(event) => onChange(event.target.value)}
             onScroll={handleEditorScroll}
             spellCheck={false}
-            className="relative z-10 h-full w-full resize-none overflow-y-auto overflow-x-hidden whitespace-pre-wrap border-0 bg-transparent px-7 py-7 font-mono text-[13px] leading-6 text-transparent caret-orange-400 outline-none selection:bg-orange-500/30 [overflow-wrap:anywhere] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className="relative z-10 h-full w-full resize-none overflow-y-auto overflow-x-hidden whitespace-pre-wrap border-0 bg-transparent px-7 py-7 font-mono text-[13px] leading-6 text-transparent caret-orange-400 outline-none selection:bg-orange-500/30 selection:text-transparent [overflow-wrap:anywhere] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
             style={{ tabSize: 2 }}
             wrap="soft"
           />
