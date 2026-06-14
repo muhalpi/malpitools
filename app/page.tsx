@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Star, ExternalLink } from "lucide-react";
+import { ArrowRight, Calculator, ExternalLink, FileText, Star } from "lucide-react";
 import { toolCategories, featuredTools } from "@/lib/tools";
 import {
   APP_MADE_BY_NAME,
@@ -15,7 +15,6 @@ import {
   ORIGINAL_SOURCE_LABEL,
   ORIGINAL_SOURCE_URL,
 } from "@/lib/branding";
-import { DownloadCard } from "@/components/download-card";
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
@@ -24,9 +23,6 @@ export const metadata: Metadata = {
   description:
     "A modified fork of delphitools with small, low stakes and low effort tools. No logins, no registration, no data collection.",
 };
-
-/** Letters of the TAXIWAY wordmark, pre-keyed so duplicate letters keep stable identities. */
-const TAXIWAY_TILES = "TAXIWAY".split("").map((ch, i) => ({ ch, id: `tile-${i}` }));
 
 export default function Home() {
   return (
@@ -139,8 +135,6 @@ export default function Home() {
         </div>
       </section>
 
-      <DownloadCard />
-
       {/* Tool Categories */}
       <div className="space-y-10">
         {toolCategories.map((category) => (
@@ -183,229 +177,125 @@ export default function Home() {
         ))}
       </div>
 
-      {/* Original project links */}
+      {/* Another project links */}
       <section className="mt-16">
         <h2 className="mb-4 text-2xl font-bold text-foreground">
-          Original project links
+          another project links
         </h2>
         <p className="mb-4 max-w-2xl text-sm text-muted-foreground">
-          Preserved links from the original {ORIGINAL_PROJECT_NAME} project by {ORIGINAL_AUTHOR_NAME}.
+          A couple of other small projects maintained by {FORK_MAINTAINER_NAME}.
         </p>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 lg:grid-cols-2">
           <a
-            href="https://rmv.fyi/projects/taxiway"
+            href="https://buatcv-ats.vercel.app/"
             target="_blank"
             rel="noopener noreferrer"
             className="group block"
           >
-            <div
-              className="relative h-full overflow-hidden rounded-xl border transition-all hover:shadow-[var(--notion-soft-shadow)]"
-              style={{
-                background: 'linear-gradient(145deg, #0d0c0a 0%, #14130f 100%)',
-                borderColor: '#2a2520',
-              }}
-            >
+            <div className="relative h-full min-h-64 overflow-hidden rounded-lg border border-[#1d5d51] bg-[#123632] p-6 text-[#f7f1df] transition-all hover:shadow-[var(--notion-soft-shadow)]">
               <div
-                className="absolute inset-0 opacity-[0.06]"
+                aria-hidden="true"
+                className="absolute inset-0 opacity-[0.08]"
                 style={{
-                  backgroundImage: 'repeating-linear-gradient(90deg, #5b8fa8 0px, #5b8fa8 1px, transparent 1px, transparent 80px), repeating-linear-gradient(0deg, #5b8fa8 0px, #5b8fa8 1px, transparent 1px, transparent 80px)',
+                  backgroundImage:
+                    "linear-gradient(90deg, #f7f1df 1px, transparent 1px), linear-gradient(180deg, #f7f1df 1px, transparent 1px)",
+                  backgroundSize: "34px 34px",
                 }}
               />
-              <div className="relative p-6 flex flex-col gap-4">
-                <div className="flex items-start justify-between">
-                  <div
-                    className="text-[10px] uppercase"
-                    style={{ color: '#9e7322', fontFamily: "var(--font-mono)" }}
-                  >
-                    PDF Preflight
+              <div
+                aria-hidden="true"
+                className="absolute right-6 top-6 h-36 w-28 rotate-3 rounded-md border border-[#f7f1df]/25 bg-[#f7f1df] p-3 shadow-2xl transition-transform group-hover:rotate-1"
+              >
+                <div className="mb-3 h-3 w-16 rounded-full bg-[#123632]" />
+                <div className="space-y-2">
+                  <span className="block h-1.5 rounded-full bg-[#123632]/70" />
+                  <span className="block h-1.5 w-4/5 rounded-full bg-[#123632]/35" />
+                  <span className="block h-1.5 rounded-full bg-[#123632]/35" />
+                </div>
+                <div className="mt-5 grid grid-cols-2 gap-1.5">
+                  <span className="h-7 rounded bg-[#e9b949]" />
+                  <span className="h-7 rounded bg-[#1d5d51]" />
+                  <span className="h-7 rounded bg-[#d95d39]" />
+                  <span className="h-7 rounded bg-[#123632]/20" />
+                </div>
+              </div>
+              <div className="relative flex min-h-52 max-w-md flex-col justify-between gap-8 pr-28 sm:pr-36">
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex size-11 items-center justify-center rounded-lg bg-[#e9b949] text-[#123632]">
+                    <FileText className="size-5" aria-hidden="true" />
                   </div>
                   <ExternalLink
                     className="size-3.5 opacity-0 group-hover:opacity-100 transition-opacity"
-                    style={{ color: '#d4952a' }}
+                    aria-hidden="true"
                   />
                 </div>
-                <div
-                  className="inline-flex gap-[5px] p-[8px_10px] rounded-lg"
-                  style={{ background: '#161513' }}
-                >
-                  {TAXIWAY_TILES.map((tile) => (
-                    <div
-                      key={tile.id}
-                      className="relative flex flex-col gap-[1px] overflow-hidden"
-                      style={{ width: 34, height: 46 }}
-                    >
-                      <div
-                        className="relative flex-1 flex items-end justify-center overflow-hidden"
-                        style={{
-                          borderRadius: '4px 4px 1px 1px',
-                          background: 'linear-gradient(180deg, #2a2825 0%, #252420 100%)',
-                          boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.06)',
-                        }}
-                      >
-                        <span className="taxiway-glyph" style={{ top: '100%' }}>
-                          {tile.ch}
-                        </span>
-                      </div>
-                      <div
-                        className="relative flex-1 flex items-start justify-center overflow-hidden"
-                        style={{
-                          borderRadius: '1px 1px 4px 4px',
-                          background: 'linear-gradient(180deg, #222120 0%, #1f1e1b 100%)',
-                          boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.02)',
-                        }}
-                      >
-                        <span className="taxiway-glyph" style={{ top: '0%' }}>
-                          {tile.ch}
-                        </span>
-                      </div>
-                    </div>
-                  ))}
+                <div className="space-y-3">
+                  <div className="text-[10px] font-semibold uppercase text-[#e9b949]">
+                    ATS CV Builder
+                  </div>
+                  <h3 className="text-3xl font-bold leading-none text-[#f7f1df]">
+                    BuatCV
+                  </h3>
+                  <p className="text-sm leading-relaxed text-[#f7f1df]/70">
+                    Build, save, and download a professional ATS-friendly CV with a local-first workflow.
+                  </p>
                 </div>
-                <p
-                  className="text-sm leading-relaxed"
-                  style={{
-                    color: '#e8dcc8',
-                    opacity: 0.4,
-                    fontFamily: "var(--font-mono)",
-                  }}
-                >
-                  Your PDFs, cleared for takeoff.
-                </p>
               </div>
             </div>
           </a>
 
           <a
-            href="https://rmv.fyi/projects/cassini"
+            href="https://hitung-pajak.alpi-muh.workers.dev/"
             target="_blank"
             rel="noopener noreferrer"
             className="group block"
           >
-            <div
-              className="relative h-full overflow-hidden rounded-xl border transition-all hover:shadow-[var(--notion-soft-shadow)]"
-              style={{
-                background: 'linear-gradient(145deg, #2d2d33 0%, #272730 100%)',
-                borderColor: '#42424c',
-              }}
-            >
+            <div className="relative h-full min-h-64 overflow-hidden rounded-lg border border-[#62372f] bg-[#261817] p-6 text-[#fff7ed] transition-all hover:shadow-[var(--notion-soft-shadow)]">
               <div
-                className="absolute inset-0 opacity-[0.04]"
+                aria-hidden="true"
+                className="absolute inset-0 opacity-[0.1]"
                 style={{
-                  backgroundImage: 'repeating-linear-gradient(90deg, #e8e4dc 0px, #e8e4dc 1px, transparent 1px, transparent 60px)',
+                  backgroundImage:
+                    "radial-gradient(circle at 1px 1px, #fff7ed 1px, transparent 0)",
+                  backgroundSize: "20px 20px",
                 }}
               />
-              <div className="relative p-6 flex flex-col gap-4">
-                <div className="flex items-start justify-between">
-                  <div
-                    className="text-[10px] uppercase"
-                    style={{ color: '#8a9a68', fontFamily: "var(--font-mono)" }}
-                  >
-                    Drawing App
-                  </div>
-                  <ExternalLink
-                    className="size-3.5 opacity-0 group-hover:opacity-100 transition-opacity"
-                    style={{ color: '#e8e4dc' }}
-                  />
-                </div>
-                <div>
-                  <h3
-                    className="text-3xl leading-none"
-                    style={{
-                      fontFamily: "'Instrument Serif', Georgia, serif",
-                      color: '#e8e4dc',
-                    }}
-                  >
-                    Cassini
-                  </h3>
+              <div
+                aria-hidden="true"
+                className="absolute right-6 top-6 grid w-28 grid-cols-3 gap-2 rounded-lg border border-[#ffb14a]/35 bg-[#381f1a] p-3 shadow-2xl transition-transform group-hover:-translate-y-1"
+              >
+                {["7", "8", "9", "4", "5", "6", "1", "2", "3"].map((key) => (
                   <span
-                    className="mt-1 inline-block text-[10px] uppercase"
-                    style={{
-                      color: '#c4523a',
-                      fontFamily: "var(--font-mono)",
-                    }}
+                    key={key}
+                    className="flex aspect-square items-center justify-center rounded bg-[#fff7ed]/10 text-xs font-semibold text-[#fff7ed]/70"
                   >
-                    ECS-1
+                    {key}
                   </span>
-                </div>
-                <p
-                  className="text-sm leading-relaxed"
-                  style={{
-                    color: '#e8e4dc',
-                    opacity: 0.5,
-                    fontFamily: "'Instrument Serif', Georgia, serif",
-                    fontStyle: 'italic',
-                  }}
-                >
-                  Create with limits.
-                </p>
+                ))}
+                <span className="col-span-2 h-8 rounded bg-[#ffb14a]" />
+                <span className="h-8 rounded bg-[#8bc34a]" />
               </div>
-            </div>
-          </a>
-
-          <a
-            href="https://1337suite.is-hella.tech"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group block"
-          >
-            <div
-              className="relative h-full overflow-hidden rounded-xl border transition-all hover:shadow-[var(--notion-soft-shadow)]"
-              style={{
-                background: 'linear-gradient(145deg, #0d0d0d 0%, #1a1a2e 100%)',
-                borderColor: '#2a2a3e',
-              }}
-            >
-              <div
-                className="absolute inset-0 opacity-[0.03]"
-                style={{
-                  backgroundImage: 'repeating-linear-gradient(0deg, #00ff41 0px, #00ff41 1px, transparent 1px, transparent 40px)',
-                }}
-              />
-              <div className="relative p-6 flex flex-col gap-4">
-                <div className="flex items-start justify-between">
-                  <div
-                    className="text-[10px] uppercase"
-                    style={{ color: '#7b68ee', fontFamily: "var(--font-mono)" }}
-                  >
-                    Unicode &amp; Text Tools
+              <div className="relative flex min-h-52 max-w-md flex-col justify-between gap-8 pr-28 sm:pr-36">
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex size-11 items-center justify-center rounded-lg bg-[#8bc34a] text-[#261817]">
+                    <Calculator className="size-5" aria-hidden="true" />
                   </div>
                   <ExternalLink
                     className="size-3.5 opacity-0 group-hover:opacity-100 transition-opacity"
-                    style={{ color: '#00ff41' }}
+                    aria-hidden="true"
                   />
                 </div>
-                <div>
-                  <h3
-                    className="text-sm leading-none"
-                    style={{
-                      fontFamily: "var(--font-mono)",
-                      color: '#e0e0e0',
-                      opacity: 0.7,
-                    }}
-                  >
-                    Eleonor Rose&apos;s
+                <div className="space-y-3">
+                  <div className="text-[10px] font-semibold uppercase text-[#ffb14a]">
+                    Indonesian Tax Calculator
+                  </div>
+                  <h3 className="text-3xl font-bold leading-none text-[#fff7ed]">
+                    Hitung Pajak
                   </h3>
-                  <span
-                    className="text-2xl font-bold mt-1 inline-block"
-                    style={{
-                      color: '#00ff41',
-                      fontFamily: "var(--font-mono)",
-                      textShadow: '0 0 7px #00ff41, 0 0 20px rgba(0, 255, 65, 0.4)',
-                    }}
-                  >
-                    [1337 SUITE]
-                  </span>
+                  <p className="text-sm leading-relaxed text-[#fff7ed]/70">
+                    A focused calculator for checking Indonesian tax numbers without extra clutter.
+                  </p>
                 </div>
-                <p
-                  className="text-sm leading-relaxed"
-                  style={{
-                    color: '#00ff41',
-                    opacity: 0.4,
-                    fontFamily: "var(--font-mono)",
-                  }}
-                >
-                  7ext, transf0rmed.
-                </p>
               </div>
             </div>
           </a>
