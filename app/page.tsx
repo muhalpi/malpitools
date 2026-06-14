@@ -2,15 +2,27 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Star, ExternalLink } from "lucide-react";
 import { toolCategories, featuredTools } from "@/lib/tools";
+import {
+  APP_MADE_BY_NAME,
+  APP_NAME,
+  APP_SOURCE_LABEL,
+  APP_SOURCE_URL,
+  FORK_MAINTAINER_NAME,
+  ORIGINAL_AUTHOR_NAME,
+  ORIGINAL_AUTHOR_URL,
+  ORIGINAL_CONTRIBUTORS,
+  ORIGINAL_PROJECT_NAME,
+  ORIGINAL_SOURCE_LABEL,
+  ORIGINAL_SOURCE_URL,
+} from "@/lib/branding";
 import { DownloadCard } from "@/components/download-card";
-import { StickerWall } from "@/components/sticker-wall";
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
 export const metadata: Metadata = {
-  title: "delphitools — privacy-first browser tools",
+  title: `${APP_NAME} - privacy-first browser tools`,
   description:
-    "A collection of small, low stakes and low effort tools. No logins, no registration, no data collection. Everything runs locally in your browser.",
+    "A modified fork of delphitools with small, low stakes and low effort tools. No logins, no registration, no data collection.",
 };
 
 /** Letters of the TAXIWAY wordmark, pre-keyed so duplicate letters keep stable identities. */
@@ -18,60 +30,99 @@ const TAXIWAY_TILES = "TAXIWAY".split("").map((ch, i) => ({ ch, id: `tile-${i}` 
 
 export default function Home() {
   return (
-    <div className="p-6 md:p-8 lg:p-10">
+    <div>
       {/* Hero Section */}
-      <div className="mb-12">
-        <div className="flex items-center gap-3 mb-4">
-          <img
-            src="/delphi-friday.png"
-            alt="delphitools logo"
-            width={1000}
-            height={48}
-          />
+      <section className="relative overflow-hidden bg-[var(--notion-night)] px-4 py-12 text-white md:px-8 lg:px-10">
+        <div className="pointer-events-none absolute right-6 top-8 hidden grid-cols-3 gap-3 opacity-90 md:grid">
+          <span className="size-12 rotate-6 rounded-xl bg-[var(--notion-purple)]" />
+          <span className="mt-8 size-10 -rotate-6 rounded-lg bg-[var(--notion-sky)]" />
+          <span className="size-14 rotate-3 rounded-xl bg-[var(--notion-pink)]" />
+          <span className="ml-8 size-10 -rotate-3 rounded-lg bg-[var(--notion-orange)]" />
+          <span className="size-12 rotate-6 rounded-xl bg-[var(--notion-teal)]" />
+          <span className="mt-7 size-9 rounded-lg bg-[var(--notion-green)]" />
         </div>
-        <h1 className="sr-only">delphitools</h1>
-        <div className="mt-6 max-w-2xl space-y-3 text-muted-foreground">
-          <p className="text-lg">
-            A collection of small, low stakes and low effort tools.
-          </p>
-          <p>
-            No logins, no registration, no data collection. I can&apos;t believe
-            I have to say that. Long live the handmade web.
-          </p>
-          <p>
-            If you find these tools useful, I'm glad. You don't owe me anything. But if you're an artist, feel free to <Link className="underline" href="mailto:tools@rmv.fyi">email me your work</Link>. I'd love to see it.
-          </p>
-          <p>
-            If you would like to donate to delphitools, I ask that you don't. Make a donation to <a className="underline" href="https://donate.wikimedia.org" target="_blank" rel="noopener noreferrer">Wikipedia<span className="sr-only"> (opens in new tab)</span></a> or the <a className="underline" href="https://www.eff.org/donate" target="_blank" rel="noopener noreferrer">EFF<span className="sr-only"> (opens in new tab)</span></a> instead. Email me your proof of donation and I'll put you in the credits.
-          </p>
+        <div className="relative mx-auto max-w-7xl">
+          <div className="mb-8 flex items-center gap-3">
+            <img
+              src="/malpitools-icon.svg"
+              alt=""
+              width={48}
+              height={48}
+              className="size-12 rounded-xl border border-white/20 bg-white"
+            />
+            <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-semibold text-white">
+              No logins. No tracking.
+            </span>
+          </div>
+          <h1 className="max-w-3xl text-5xl font-bold leading-none md:text-6xl">
+            {APP_NAME}
+          </h1>
+          <div className="mt-6 max-w-2xl space-y-3 text-base leading-7 text-white/80">
+            <p className="text-lg text-white">
+              A collection of small, low stakes and low effort tools.
+            </p>
+            <p>
+              No logins, no registration, no data collection. I can&apos;t believe
+              I have to say that. Long live the handmade web.
+            </p>
+            <p>
+              Made by {APP_MADE_BY_NAME}. Based on{" "}
+              <a className="underline decoration-white/40 underline-offset-4 hover:decoration-white" href={ORIGINAL_SOURCE_URL} target="_blank" rel="noopener noreferrer">
+                {ORIGINAL_PROJECT_NAME}<span className="sr-only"> (opens in new tab)</span>
+              </a>{" "}
+              by{" "}
+              <a className="underline decoration-white/40 underline-offset-4 hover:decoration-white" href={ORIGINAL_AUTHOR_URL} target="_blank" rel="noopener noreferrer">
+                {ORIGINAL_AUTHOR_NAME}<span className="sr-only"> (opens in new tab)</span>
+              </a>
+              .
+            </p>
+          </div>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link
+              href="#greatest-hits"
+              className="inline-flex h-11 items-center justify-center rounded-full bg-primary px-5 text-sm font-medium text-primary-foreground transition-colors hover:bg-[#005bab] dark:hover:bg-primary/90"
+            >
+              Browse tools
+            </Link>
+            <a
+              href={APP_SOURCE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex h-11 items-center justify-center rounded-full bg-white px-5 text-sm font-medium text-black transition-colors hover:bg-white/90"
+            >
+              Fork source<span className="sr-only"> (opens in new tab)</span>
+            </a>
+          </div>
         </div>
-      </div>
+      </section>
+
+      <div className="mx-auto max-w-7xl px-4 py-10 md:px-8 lg:px-10">
 
       {/* Greatest Hits */}
-      <section className="mb-12">
+      <section id="greatest-hits" className="mb-12 scroll-mt-20">
         <div className="flex items-center gap-2 mb-4">
-          <Star className="size-5 text-amber-500 fill-amber-500" aria-hidden="true" />
-          <h2 className="text-lg font-semibold text-foreground/80">
-            Delphi&apos;s Greatest Hits
+          <Star className="size-5 text-primary fill-primary" aria-hidden="true" />
+          <h2 className="text-2xl font-bold text-foreground">
+            Greatest Hits
           </h2>
         </div>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {featuredTools.map((tool) => {
             const Icon = tool.icon;
             return (
-              <Link key={tool.id} href={tool.href}>
-                <Card className="group h-full transition-all border-amber-500/20 bg-amber-500/5 hover:border-amber-500/40 hover:bg-amber-500/10 hover:shadow-md">
+              <Link key={tool.id} href={tool.href} className="block h-full">
+                <Card className="group h-full transition-all hover:border-primary/35 hover:shadow-[var(--notion-soft-shadow)]">
                   <CardHeader className="pb-4">
                     <div className="flex items-start justify-between">
-                      <div className="flex size-10 items-center justify-center rounded-lg bg-amber-500/10 group-hover:bg-amber-500/20 transition-colors">
-                        <Icon className="size-5 text-amber-600 dark:text-amber-400" />
+                      <div className="flex size-10 items-center justify-center rounded-lg bg-muted transition-colors group-hover:bg-primary/10">
+                        <Icon className="size-5 text-primary" />
                       </div>
-                      <ArrowRight className="size-4 text-amber-500/50 opacity-0 group-hover:opacity-100 transition-opacity" aria-hidden="true" />
+                      <ArrowRight className="size-4 text-primary opacity-0 transition-opacity group-hover:opacity-100" aria-hidden="true" />
                     </div>
                     <CardTitle className="text-base mt-3 flex items-center gap-2">
                       {tool.name}
                       {tool.beta && (
-                        <Badge variant="outline" className="text-[10px] px-1.5 py-0 border-amber-500/50 text-amber-600 dark:text-amber-400">Beta</Badge>
+                        <Badge variant="outline" className="px-1.5 py-0 text-[10px] text-muted-foreground">Beta</Badge>
                       )}
                       {tool.new && (
                         <Badge variant="outline" className="text-[10px] px-1.5 py-0 border-primary/50 text-primary">New</Badge>
@@ -94,26 +145,26 @@ export default function Home() {
       <div className="space-y-10">
         {toolCategories.map((category) => (
           <section key={category.id}>
-            <h2 className="text-lg font-semibold mb-4 text-foreground/80">
+            <h2 className="mb-4 text-2xl font-bold text-foreground">
               {category.name}
             </h2>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {category.tools.map((tool) => {
                 const Icon = tool.icon;
                 return (
-                  <Link key={tool.id} href={tool.href}>
-                    <Card className="group h-full transition-all hover:border-foreground/20 hover:shadow-md">
+                  <Link key={tool.id} href={tool.href} className="block h-full">
+                    <Card className="group h-full transition-all hover:border-primary/35 hover:shadow-[var(--notion-soft-shadow)]">
                       <CardHeader className="pb-4">
                         <div className="flex items-start justify-between">
-                          <div className="flex size-10 items-center justify-center rounded-lg bg-muted group-hover:bg-primary/10 transition-colors">
-                            <Icon className="size-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                          <div className="flex size-10 items-center justify-center rounded-lg bg-muted transition-colors group-hover:bg-primary/10">
+                            <Icon className="size-5 text-muted-foreground transition-colors group-hover:text-primary" />
                           </div>
-                          <ArrowRight className="size-4 text-muted-foreground/50 opacity-0 group-hover:opacity-100 transition-opacity" aria-hidden="true" />
+                          <ArrowRight className="size-4 text-primary opacity-0 transition-opacity group-hover:opacity-100" aria-hidden="true" />
                         </div>
                         <CardTitle className="text-base mt-3 flex items-center gap-2">
                           {tool.name}
                           {tool.beta && (
-                            <Badge variant="outline" className="text-[10px] px-1.5 py-0 border-amber-500/50 text-amber-600 dark:text-amber-400">Beta</Badge>
+                            <Badge variant="outline" className="px-1.5 py-0 text-[10px] text-muted-foreground">Beta</Badge>
                           )}
                           {tool.new && (
                             <Badge variant="outline" className="text-[10px] px-1.5 py-0 border-primary/50 text-primary">New</Badge>
@@ -132,11 +183,14 @@ export default function Home() {
         ))}
       </div>
 
-      {/* Friends of Delphi */}
+      {/* Original project links */}
       <section className="mt-16">
-        <h2 className="text-lg font-semibold mb-4 text-foreground/80">
-          Friends of Delphi
+        <h2 className="mb-4 text-2xl font-bold text-foreground">
+          Original project links
         </h2>
+        <p className="mb-4 max-w-2xl text-sm text-muted-foreground">
+          Preserved links from the original {ORIGINAL_PROJECT_NAME} project by {ORIGINAL_AUTHOR_NAME}.
+        </p>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <a
             href="https://rmv.fyi/projects/taxiway"
@@ -145,7 +199,7 @@ export default function Home() {
             className="group block"
           >
             <div
-              className="relative h-full overflow-hidden rounded-xl border transition-all hover:shadow-lg hover:scale-[1.01]"
+              className="relative h-full overflow-hidden rounded-xl border transition-all hover:shadow-[var(--notion-soft-shadow)]"
               style={{
                 background: 'linear-gradient(145deg, #0d0c0a 0%, #14130f 100%)',
                 borderColor: '#2a2520',
@@ -160,7 +214,7 @@ export default function Home() {
               <div className="relative p-6 flex flex-col gap-4">
                 <div className="flex items-start justify-between">
                   <div
-                    className="text-[10px] tracking-[0.3em] uppercase"
+                    className="text-[10px] uppercase"
                     style={{ color: '#9e7322', fontFamily: "var(--font-mono)" }}
                   >
                     PDF Preflight
@@ -228,7 +282,7 @@ export default function Home() {
             className="group block"
           >
             <div
-              className="relative h-full overflow-hidden rounded-xl border transition-all hover:shadow-lg hover:scale-[1.01]"
+              className="relative h-full overflow-hidden rounded-xl border transition-all hover:shadow-[var(--notion-soft-shadow)]"
               style={{
                 background: 'linear-gradient(145deg, #2d2d33 0%, #272730 100%)',
                 borderColor: '#42424c',
@@ -243,7 +297,7 @@ export default function Home() {
               <div className="relative p-6 flex flex-col gap-4">
                 <div className="flex items-start justify-between">
                   <div
-                    className="text-[10px] tracking-[0.3em] uppercase"
+                    className="text-[10px] uppercase"
                     style={{ color: '#8a9a68', fontFamily: "var(--font-mono)" }}
                   >
                     Drawing App
@@ -264,7 +318,7 @@ export default function Home() {
                     Cassini
                   </h3>
                   <span
-                    className="text-[10px] tracking-[0.2em] uppercase mt-1 inline-block"
+                    className="mt-1 inline-block text-[10px] uppercase"
                     style={{
                       color: '#c4523a',
                       fontFamily: "var(--font-mono)",
@@ -295,7 +349,7 @@ export default function Home() {
             className="group block"
           >
             <div
-              className="relative h-full overflow-hidden rounded-xl border transition-all hover:shadow-lg hover:scale-[1.01]"
+              className="relative h-full overflow-hidden rounded-xl border transition-all hover:shadow-[var(--notion-soft-shadow)]"
               style={{
                 background: 'linear-gradient(145deg, #0d0d0d 0%, #1a1a2e 100%)',
                 borderColor: '#2a2a3e',
@@ -310,7 +364,7 @@ export default function Home() {
               <div className="relative p-6 flex flex-col gap-4">
                 <div className="flex items-start justify-between">
                   <div
-                    className="text-[10px] tracking-[0.3em] uppercase"
+                    className="text-[10px] uppercase"
                     style={{ color: '#7b68ee', fontFamily: "var(--font-mono)" }}
                   >
                     Unicode &amp; Text Tools
@@ -327,7 +381,6 @@ export default function Home() {
                       fontFamily: "var(--font-mono)",
                       color: '#e0e0e0',
                       opacity: 0.7,
-                      letterSpacing: '0.05em',
                     }}
                   >
                     Eleonor Rose&apos;s
@@ -337,7 +390,6 @@ export default function Home() {
                     style={{
                       color: '#00ff41',
                       fontFamily: "var(--font-mono)",
-                      letterSpacing: '0.05em',
                       textShadow: '0 0 7px #00ff41, 0 0 20px rgba(0, 255, 65, 0.4)',
                     }}
                   >
@@ -360,71 +412,102 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Stickers */}
-      <StickerWall />
-
       {/* About Section */}
       <div className="mt-16 pt-8 border-t">
         <div className="max-w-2xl space-y-6">
-          <h2 className="text-lg font-semibold text-foreground/80">About</h2>
+          <h2 className="text-2xl font-bold text-foreground">About</h2>
 
           <div className="space-y-4 text-sm text-muted-foreground">
             <p>
-              delphitools is a collection of small, focused utilities that respect your privacy
+              {APP_NAME} is a modified fork of {ORIGINAL_PROJECT_NAME}, a collection of small, focused utilities that respect your privacy
               and work entirely in your browser. No data leaves your machine, no accounts required,
               no tracking. Just tools that do what they say.
             </p>
             <p>
-              I love the web. The classic, real web full of weird things. And that web is out there. You just have to find it. And sometimes, you have to make it yourself.
+              This fork preserves attribution to the original author and contributors while adding changes maintained by {FORK_MAINTAINER_NAME}.
+            </p>
+            <p>
+              The original project asks that, if you would like to donate, please donate to{" "}
+              <a className="underline hover:text-primary" href="https://donate.wikimedia.org" target="_blank" rel="noopener noreferrer">
+                Wikipedia<span className="sr-only"> (opens in new tab)</span>
+              </a>{" "}
+              or the{" "}
+              <a className="underline hover:text-primary" href="https://www.eff.org/donate" target="_blank" rel="noopener noreferrer">
+                EFF<span className="sr-only"> (opens in new tab)</span>
+              </a>{" "}
+              instead.
             </p>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2 text-sm">
             <div className="space-y-2">
-              <h3 className="font-medium text-foreground/80">Made by</h3>
+              <h3 className="font-medium text-foreground">Made by</h3>
+              <p className="text-muted-foreground">{APP_MADE_BY_NAME}</p>
+            </div>
+            <div className="space-y-2">
+              <h3 className="font-medium text-foreground">Fork maintainer</h3>
               <p className="text-muted-foreground">
                 <a
-                  href="https://rmv.fyi"
+                  href="https://github.com/muhalpi"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-primary transition-colors"
                 >
-                  delphi<span className="sr-only"> (opens in new tab)</span>
+                  {FORK_MAINTAINER_NAME}<span className="sr-only"> (opens in new tab)</span>
                 </a>
               </p>
             </div>
             <div className="space-y-2">
-              <h3 className="font-medium text-foreground/80">Source</h3>
+              <h3 className="font-medium text-foreground">Based on</h3>
               <p className="text-muted-foreground">
                 <a
-                  href="https://github.com/1612elphi/delphitools"
+                  href={ORIGINAL_SOURCE_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-primary transition-colors"
                 >
-                  1612elphi/delphitools<span className="sr-only"> (opens in new tab)</span>
+                  {ORIGINAL_PROJECT_NAME} by {ORIGINAL_AUTHOR_NAME}<span className="sr-only"> (opens in new tab)</span>
+                </a>
+              </p>
+            </div>
+            <div className="space-y-2">
+              <h3 className="font-medium text-foreground">Original source</h3>
+              <p className="text-muted-foreground">
+                <a
+                  href={ORIGINAL_SOURCE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-primary transition-colors"
+                >
+                  {ORIGINAL_SOURCE_LABEL}<span className="sr-only"> (opens in new tab)</span>
+                </a>
+              </p>
+            </div>
+            <div className="space-y-2">
+              <h3 className="font-medium text-foreground">This fork source</h3>
+              <p className="text-muted-foreground">
+                <a
+                  href={APP_SOURCE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-primary transition-colors"
+                >
+                  {APP_SOURCE_LABEL}<span className="sr-only"> (opens in new tab)</span>
                 </a>
               </p>
             </div>
           </div>
 
           <div className="space-y-2">
-            <h3 className="font-medium text-foreground/80 text-sm">Contributors</h3>
+            <h3 className="font-medium text-foreground text-sm">Original contributors</h3>
             <div className="flex flex-wrap gap-1.5">
-              {[
-                { name: "Himanshu Balani", url: "https://github.com/himanshubalani" },
-                { name: "Mahmoud Ashraf", url: "https://github.com/SNO7E-G" },
-                { name: "Moamal Alaa", url: "https://github.com/Moamal-2000" },
-                { name: "Mouaz Aldakkak", url: "https://github.com/movoid12" },
-                { name: "Pranav K", url: "https://github.com/Pranavk-official" },
-                { name: "Claude", url: "https://rmv.fyi/notes/i-hope-you-don-t-use-generative-ai" },
-              ].map((person) => (
+              {ORIGINAL_CONTRIBUTORS.map((person) => (
                 <a
                   key={person.name}
                   href={person.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs px-2 py-1 rounded-md bg-muted hover:bg-muted/80 text-muted-foreground hover:text-foreground transition-colors"
+                  className="rounded-full border bg-card px-2 py-1 text-xs text-muted-foreground transition-colors hover:text-foreground"
                 >
                   {person.name}<span className="sr-only"> (opens in new tab)</span>
                 </a>
@@ -437,9 +520,14 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="underline hover:text-muted-foreground transition-colors"
               >
-                Behind the scenes of delphitools<span className="sr-only"> (opens in new tab)</span>
+                Original behind-the-scenes note<span className="sr-only"> (opens in new tab)</span>
               </a>
             </p>
+          </div>
+
+          <div className="space-y-2">
+            <h3 className="font-medium text-foreground text-sm">Additional contributors</h3>
+            <p className="text-sm text-muted-foreground">{FORK_MAINTAINER_NAME}</p>
           </div>
 
           <div className="pt-4 border-t border-border/50">
@@ -450,5 +538,6 @@ export default function Home() {
         </div>
       </div>
     </div>
+  </div>
   );
 }

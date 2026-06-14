@@ -993,12 +993,6 @@ export const CURATED_PALETTES: CuratedPalette[] = [
     category: "bold",
   },
   {
-    id: "pride",
-    name: "Pride",
-    colors: ["#e40303", "#ff8c00", "#ffed00", "#008026", "#004dff", "#750787"],
-    category: "bold",
-  },
-  {
     id: "fiesta",
     name: "Fiesta",
     colors: ["#e41a1c", "#ff7f00", "#ffd700", "#4daf4a", "#377eb8"],

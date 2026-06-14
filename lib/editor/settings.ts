@@ -25,7 +25,7 @@ export const DEFAULT_SETTINGS: EditorSettings = {
 // Clean up any settings a previous build persisted (we store nothing now).
 export function clearStoredSettings(): void {
   try {
-    localStorage.removeItem("delphitools-editor-settings");
+    localStorage.removeItem("malpitools-editor-settings");
   } catch {
     /* ignore */
   }

@@ -1,9 +1,36 @@
-# delphitools
+# malpitools
 
-A collection of small, low stakes and low effort tools.
+malpitools is a modified fork of delphitools: a collection of small, low stakes and low effort tools.
 No logins, no registration, no data collection.
 I can't believe I have to say that. 
 Long live the handmade web.
+
+## Attribution
+
+Made by Muhammad Alfi.
+
+Based on [delphitools](https://github.com/1612elphi/delphitools) by [delphi](https://github.com/1612elphi).
+
+- Original source: [1612elphi/delphitools](https://github.com/1612elphi/delphitools)
+- This fork source: [muhalpi/malpitools](https://github.com/muhalpi/malpitools)
+- Fork maintainer: malpi
+
+This fork preserves the original MIT License and copyright notice. Modifications are additionally noted in [LICENSE](./LICENSE).
+
+### Original contributors
+
+The following contributors are preserved from the original delphitools credits:
+
+- [Himanshu Balani](https://github.com/himanshubalani)
+- [Mahmoud Ashraf](https://github.com/SNO7E-G)
+- [Moamal Alaa](https://github.com/Moamal-2000)
+- [Mouaz Aldakkak](https://github.com/movoid12)
+- [Pranav K](https://github.com/Pranavk-official)
+- [Claude](https://rmv.fyi/notes/i-hope-you-don-t-use-generative-ai)
+
+### Additional contributors
+
+- malpi
 
 ## Included tools
 
@@ -88,16 +115,16 @@ Long live the handmade web.
 
 - **Build locally:**  
 ```bash
-docker build -t delphitools:latest .
+docker build -t malpitools:latest .
 # Optional: stamp the in-app version label (shown when hovering the logo).
 # .git is not in the build context, so pass the SHA explicitly:
-docker build --build-arg COMMIT_SHA=$(git rev-parse --short HEAD) -t delphitools:latest .
+docker build --build-arg COMMIT_SHA=$(git rev-parse --short HEAD) -t malpitools:latest .
 ```
 
 - **Run locally:**  
 ```bash
 # serve on http://localhost:3000 
-docker run --rm -p 3000:80 delphitools:latest
+docker run --rm -p 3000:80 malpitools:latest
 ```
 
 - **With docker-compose:**  

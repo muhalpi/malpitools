@@ -1,6 +1,8 @@
-# Contributing to delphitools
+# Contributing to malpitools
 
-Thanks for your interest in contributing! delphitools welcomes code contributions from anyone, provided they align with the project's philosophy and the guidelines below.
+Thanks for your interest in contributing! malpitools welcomes code contributions from anyone, provided they align with the project's philosophy and the guidelines below.
+
+malpitools is a modified fork of [delphitools](https://github.com/1612elphi/delphitools) by delphi. These guidelines are adapted from the original project and keep the same local-first, privacy-first philosophy.
 
 ## What we accept
 
@@ -10,15 +12,15 @@ Thanks for your interest in contributing! delphitools welcomes code contribution
 
 Every contribution should reference an issue. If one doesn't exist yet, open one first and describe the problem you're solving.
 
-## The delphitools maxim
+## The malpitools maxim
 
-delphitools is **local, private, and static by design**. Every contribution must uphold these principles:
+malpitools is **local, private, and static by design**. Every contribution must uphold these principles:
 
 1. **No outside calls.** Tools must never phone home, fetch from external APIs, or transmit user data anywhere. All processing happens in the browser, on the user's device.
 2. **No server components.** The entire web application compiles to static HTML. Server Actions, API routes, server-side data fetching, and any runtime server dependency are not permitted. The only server involvement is at build time (`next build`).
 3. **All local, all private.** No analytics, no tracking, no cookies, no logins, no telemetry. If a tool needs data, the user provides it and it never leaves their machine.
 
-If your contribution can't work within these constraints, it doesn't belong in delphitools.
+If your contribution can't work within these constraints, it doesn't belong in malpitools.
 
 ## UNIX philosophy
 

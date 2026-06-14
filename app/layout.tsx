@@ -6,15 +6,15 @@ import { AppSidebar } from "@/components/app-sidebar";
 import { AppHeader } from "@/components/app-header";
 import { ColourNotationProvider } from "@/components/colour-notation-provider";
 import SkipLink from "@/components/ui/skip-link";
+import { APP_DESCRIPTION, APP_NAME } from "@/lib/branding";
 
 export const metadata: Metadata = {
-  title: "delphitools",
-  description:
-    "A collection of small, low stakes and low effort tools. No logins, no registration, no data collection.",
+  title: APP_NAME,
+  description: APP_DESCRIPTION,
   icons: {
-    icon: "/delphi-lowlod.png",
-    shortcut: "/delphi-lowlod.png",
-    apple: "/delphi-lowlod.png",
+    icon: "/malpitools-icon.svg",
+    shortcut: "/malpitools-icon.svg",
+    apple: "/malpitools-icon.svg",
   },
 };
 
@@ -28,11 +28,11 @@ export default function RootLayout({
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem("theme");if(t==="dark"||(t!=="light"&&matchMedia("(prefers-color-scheme:dark)").matches))document.documentElement.classList.add("dark")}catch(e){}})()`,
+            __html: `(function(){try{var t=localStorage.getItem("theme");if(t==="dark")document.documentElement.classList.add("dark")}catch(e){}})()`,
           }}
         />
       </head>
-      <body className="font-mono antialiased">
+      <body className="font-sans antialiased">
         <ColourNotationProvider>
           <SidebarProvider>
             <SkipLink />

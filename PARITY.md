@@ -1,5 +1,9 @@
 # delphitools — Cross-Platform Tool Parity
 
+> Retained from the original delphitools project for attribution and ecosystem context.
+> malpitools is a modified web-app fork maintained by malpi at
+> [muhalpi/malpitools](https://github.com/muhalpi/malpitools).
+
 This is the **canonical, hand-maintained** record of which tools exist on each
 delphitools surface. It lives in the web repo (`delphitools`) because that is the
 most complete implementation and the de-facto source of truth for the catalogue.

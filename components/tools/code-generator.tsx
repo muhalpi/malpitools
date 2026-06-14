@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, type DragEvent } from "react";
 import {
   Download,
   Copy,
@@ -35,6 +35,7 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs";
+import { cn } from "@/lib/utils";
 
 interface BatchItem {
   id: string;
@@ -233,6 +234,7 @@ export function CodeGeneratorTool() {
   // Batch state
   const [batchItems, setBatchItems] = useState<BatchItem[]>([]);
   const [batchGenerating, setBatchGenerating] = useState(false);
+  const [batchDragging, setBatchDragging] = useState(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const batchFileInputRef = useRef<HTMLInputElement>(null);
@@ -394,10 +396,7 @@ export function CodeGeneratorTool() {
     );
   };
 
-  const handleBatchFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
+  const readBatchFile = (file: File) => {
     const reader = new FileReader();
     reader.onload = (event) => {
       const text = event.target?.result as string;
@@ -415,7 +414,32 @@ export function CodeGeneratorTool() {
       setBatchItems((prev) => [...prev, ...newItems]);
     };
     reader.readAsText(file);
+  };
+
+  const handleBatchFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) readBatchFile(file);
     e.target.value = "";
+  };
+
+  const handleBatchDragOver = (e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = "copy";
+    setBatchDragging(true);
+  };
+
+  const handleBatchDragLeave = () => {
+    setBatchDragging(false);
+  };
+
+  const handleBatchDrop = (e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setBatchDragging(false);
+
+    const file = Array.from(e.dataTransfer.files).find(
+      (item) => item.type === "text/plain" || /\.txt$/i.test(item.name)
+    );
+    if (file) readBatchFile(file);
   };
 
   const generateBatch = async () => {
@@ -750,8 +774,16 @@ export function CodeGeneratorTool() {
           </TabsContent>
 
           {/* Batch Mode */}
-          <TabsContent value="batch" className="space-y-4 mt-4">
-            <div className="space-y-3">
+          <TabsContent value="batch" className="mt-4 space-y-4">
+            <div
+              onDragOver={handleBatchDragOver}
+              onDragLeave={handleBatchDragLeave}
+              onDrop={handleBatchDrop}
+              className={cn(
+                "space-y-3 rounded-lg border border-dashed border-transparent p-1 transition-colors",
+                batchDragging && "border-primary/70 bg-primary/5"
+              )}
+            >
               {batchItems.map((item, index) => (
                 <div key={item.id} className="flex gap-2 items-center">
                   <span className="text-sm text-muted-foreground w-6">

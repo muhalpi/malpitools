@@ -1,6 +1,7 @@
 "use client"
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { ORIGINAL_PROJECT_NAME } from "@/lib/branding"
 
 const APP_STORE_URL = "https://apps.apple.com/us/app/delphitools/id6761313703"
 const REPO_URL = "https://github.com/1612elphi/delphitools-cli"
@@ -23,10 +24,10 @@ function AppStoreButton() {
       href={APP_STORE_URL}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex items-center gap-2 rounded-lg bg-foreground px-5 py-2.5 transition-opacity hover:opacity-90"
+      className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 transition-colors hover:bg-[#005bab] dark:hover:bg-primary/90"
     >
-      <AppleLogo className="size-4 text-background" />
-      <span className="text-sm font-medium text-background">Download on the App Store</span>
+      <AppleLogo className="size-4 text-primary-foreground" />
+      <span className="text-sm font-medium text-primary-foreground">Download on the App Store</span>
     </a>
   )
 }
@@ -54,14 +55,14 @@ function DesktopIosCard() {
   return (
     <section className="mb-6 hidden sm:block sm:pt-20">
       <div className="relative">
-        <div className="rounded-2xl border border-primary/20 bg-primary/5 transition-all hover:border-primary/30 hover:shadow-lg">
+        <div className="rounded-xl border bg-card transition-all hover:shadow-[var(--notion-soft-shadow)]">
           <div className="relative p-10 pr-48 md:pr-56 lg:pr-64">
             <div className="space-y-4 max-w-lg">
-              <h3 className="text-3xl font-semibold leading-tight text-foreground">
-                The tools you love, now on iPhone and iPad.
+              <h3 className="text-3xl font-bold leading-tight text-foreground">
+                Original delphitools, on iPhone and iPad.
               </h3>
               <p className="text-sm leading-relaxed text-muted-foreground">
-                The same privacy-first tools you rely on, built natively for iOS. No accounts, no tracking, no compromises.
+                The upstream project also has a native iOS app. This link points to the original delphitools app, not this fork.
               </p>
               <div className="pt-2 flex flex-wrap gap-3">
                 <AppStoreButton />
@@ -83,14 +84,14 @@ function DesktopCliCard() {
   return (
     <section className="mb-12 hidden sm:block">
       <div className="relative">
-        <div className="rounded-2xl border border-emerald-600/20 bg-emerald-600/5 transition-all hover:border-emerald-600/30 hover:shadow-lg">
+        <div className="rounded-xl border bg-card transition-all hover:shadow-[var(--notion-soft-shadow)]">
           <div className="relative p-10 pr-60 md:pr-64 lg:pr-72">
             <div className="space-y-4 max-w-lg">
-              <h3 className="text-3xl font-semibold leading-tight text-foreground">
-                Live in the terminal? Delphi&apos;s here too.
+              <h3 className="text-3xl font-bold leading-tight text-foreground">
+                Original delphitools, in the terminal.
               </h3>
               <p className="text-sm leading-relaxed text-muted-foreground">
-                The same privacy-first tools, in your shell. Entirely offline. Everything pipes. Everything takes <code className="font-mono text-xs">-j</code> for JSON.
+                The upstream CLI is maintained separately by the original project. Entirely offline. Everything pipes. Everything takes <code className="font-mono text-xs">-j</code> for JSON.
               </p>
               <CliActions />
             </div>
@@ -110,10 +111,10 @@ function MobileTabsCard() {
   return (
     <section className="mb-12 sm:hidden">
       <Tabs defaultValue="ios">
-        <div className="rounded-2xl border border-primary/20 bg-primary/5">
+        <div className="rounded-xl border bg-card">
           <div className="flex flex-col gap-3 px-6 pt-6">
             <h3 className="text-xl font-semibold leading-tight text-foreground">
-              Get delphitools for…
+              Original {ORIGINAL_PROJECT_NAME} companion apps
             </h3>
             <TabsList>
               <TabsTrigger value="ios">iOS</TabsTrigger>
@@ -131,7 +132,7 @@ function MobileTabsCard() {
                 />
               </div>
               <p className="text-sm leading-relaxed text-muted-foreground">
-                The same privacy-first tools you rely on, built natively for iOS.
+                The upstream project also has a native iOS app. This link points to the original app, not this fork.
               </p>
               <div className="flex flex-wrap gap-3">
                 <AppStoreButton />
@@ -149,7 +150,7 @@ function MobileTabsCard() {
                 />
               </div>
               <p className="text-sm leading-relaxed text-muted-foreground">
-                The same privacy-first tools, in your shell. Entirely offline. Everything pipes.
+                The upstream CLI is maintained separately by the original project. Entirely offline. Everything pipes.
               </p>
               <CliActions />
             </div>

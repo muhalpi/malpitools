@@ -1,0 +1,66 @@
+▲ Next.js 16.1.6 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.1.8:3000
+
+✓ Starting...
+✓ Ready in 2.9s
+○ Compiling / ...
+ GET / 200 in 7.5s (compile: 4.8s, render: 2.7s)
+ GET / 200 in 2000ms (compile: 22ms, render: 1977ms)
+ GET / 200 in 2.1s (compile: 10ms, render: 2.0s)
+ GET / 200 in 3.4s (compile: 18ms, render: 3.4s)
+ GET / 200 in 3.3s (compile: 16ms, render: 3.3s)
+○ Compiling /tools/[toolId] ...
+ GET /tools/audio-metadata 200 in 18.6s (compile: 17.6s, generate-params: 2.6s, render: 925ms)
+ GET /tools/audio-metadata 200 in 919ms (compile: 67ms, generate-params: 20ms, render: 852ms)
+ GET /tools/audio-metadata 200 in 714ms (compile: 26ms, generate-params: 156µs, render: 687ms)
+✓ Compiled in 1364ms
+▲ Next.js 16.1.6 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.1.8:3000
+
+✓ Starting...
+✓ Ready in 3s
+○ Compiling /tools/[toolId] ...
+ GET / 200 in 15.9s (compile: 13.1s, render: 2.8s)
+ GET /tools/audio-metadata 200 in 19.7s (compile: 17.2s, generate-params: 1643ms, render: 2.5s)
+✓ Finished filesystem cache database compaction in 13.2s
+✓ Finished writing to filesystem cache in 10.5s
+✓ Compiled in 2.5s
+✓ Compiled in 496ms
+ GET / 200 in 2.9s (compile: 53ms, render: 2.9s)
+ GET / 200 in 2.2s (compile: 8ms, render: 2.2s)
+ GET / 200 in 396ms (compile: 9ms, render: 387ms)
+ GET /tools/gradient-genny 200 in 499ms (compile: 349ms, generate-params: 13ms, render: 150ms)
+ GET /tools/scroll-generator 200 in 89ms (compile: 29ms, generate-params: 9ms, render: 59ms)
+ GET /tools/matte-generator 200 in 62ms (compile: 16ms, generate-params: 6ms, render: 46ms)
+ GET /tools/qr-genny 200 in 81ms (compile: 29ms, generate-params: 9ms, render: 53ms)
+ GET /tools/palette-genny 200 in 67ms (compile: 16ms, generate-params: 6ms, render: 51ms)
+ GET /tools/background-remover 200 in 82ms (compile: 17ms, generate-params: 5ms, render: 65ms)
+ GET /tools/matte-generator 200 in 51ms (compile: 14ms, generate-params: 6ms, render: 37ms)
+ GET /tools/scroll-generator 200 in 54ms (compile: 14ms, generate-params: 52µs, render: 40ms)
+ GET /tools/social-cropper 200 in 56ms (compile: 17ms, generate-params: 6ms, render: 39ms)
+ GET /tools/watermarker 200 in 53ms (compile: 12ms, generate-params: 108µs, render: 40ms)
+ GET /tools/colorblind-sim 200 in 53ms (compile: 19ms, generate-params: 6ms, render: 34ms)
+ GET /tools/colour-converter 200 in 80ms (compile: 15ms, generate-params: 6ms, render: 65ms)
+ GET /tools/contrast-checker 200 in 59ms (compile: 18ms, generate-params: 6ms, render: 42ms)
+ GET /tools/time-calc 200 in 59ms (compile: 16ms, generate-params: 6ms, render: 42ms)
+ GET /tools/sci-calc 200 in 71ms (compile: 23ms, generate-params: 5ms, render: 49ms)
+ GET /tools/graph-calc 200 in 80ms (compile: 17ms, generate-params: 5ms, render: 62ms)
+ GET /tools/encoder 200 in 57ms (compile: 16ms, generate-params: 6ms, render: 40ms)
+ GET /tools/base-converter 200 in 68ms (compile: 10ms, generate-params: 38µs, render: 58ms)
+ GET /tools/algebra-calc 200 in 64ms (compile: 19ms, generate-params: 9ms, render: 45ms)
+ GET /tools/audio-metadata 200 in 67ms (compile: 17ms, generate-params: 6ms, render: 50ms)
+ GET /tools/audio-trim-cut 200 in 75ms (compile: 18ms, generate-params: 7ms, render: 57ms)
+ GET /tools/audio-metadata 200 in 55ms (compile: 17ms, generate-params: 6ms, render: 39ms)
+ GET /tools/placeholder-genny 200 in 52ms (compile: 14ms, generate-params: 5ms, render: 38ms)
+ GET /tools/html-viewer 200 in 88ms (compile: 28ms, generate-params: 6ms, render: 61ms)
+ GET /tools/qr-genny 200 in 68ms (compile: 22ms, generate-params: 8ms, render: 46ms)
+ GET /tools/palette-genny 200 in 61ms (compile: 16ms, generate-params: 7ms, render: 45ms)
+ GET /tools/background-remover 200 in 38ms (compile: 9ms, generate-params: 27µs, render: 30ms)
+ GET /tools/matte-generator 200 in 59ms (compile: 16ms, generate-params: 6ms, render: 44ms)
+ GET /tools/scroll-generator 200 in 71ms (compile: 22ms, generate-params: 7ms, render: 49ms)
+ GET /tools/social-cropper 200 in 58ms (compile: 10ms, generate-params: 29µs, render: 48ms)
+ GET /tools/social-cropper 200 in 60ms (compile: 16ms, generate-params: 5ms, render: 44ms)
+ GET /tools/watermarker 200 in 51ms (compile: 10ms, generate-params: 39µs, render: 40ms)
+ GET /tools/colorblind-sim 200 in 50ms (compile: 15ms, generate-params: 5ms, render: 35ms)

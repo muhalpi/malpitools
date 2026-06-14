@@ -1,10 +1,9 @@
 import { notFound } from "next/navigation";
 import dynamic from "next/dynamic";
 import { Construction } from "lucide-react";
-import { getToolById, getCategoryByToolId, allTools } from "@/lib/tools";
+import { getToolById, allTools } from "@/lib/tools";
+import { APP_NAME } from "@/lib/branding";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { PeelSticker } from "@/components/sticker-wall";
 
 // Dynamic imports for tool components
 const toolComponents: Record<string, React.ComponentType> = {
@@ -60,6 +59,9 @@ const toolComponents: Record<string, React.ComponentType> = {
   "decoder": dynamic(() => import("@/components/tools/decoder").then(mod => mod.DecoderTool)),
   "doc-converter": dynamic(() => import("@/components/tools/doc-converter").then(mod => mod.DocConverterTool)),
   "text-editor": dynamic(() => import("@/components/tools/text-editor").then(mod => mod.TextEditorTool)),
+  "audio-metadata": dynamic(() => import("@/components/tools/audio-metadata").then(mod => mod.AudioMetadataTool)),
+  "audio-trim-cut": dynamic(() => import("@/components/tools/audio-trim-cut").then(mod => mod.AudioTrimCutTool)),
+  "html-viewer": dynamic(() => import("@/components/tools/html-viewer").then(mod => mod.HtmlViewerTool)),
 };
 
 interface ToolPageProps {
@@ -85,7 +87,7 @@ export async function generateMetadata({ params }: ToolPageProps) {
   }
 
   return {
-    title: `${tool.name} - delphitools`,
+    title: `${tool.name} - ${APP_NAME}`,
     description: tool.description,
   };
 }
@@ -93,43 +95,20 @@ export async function generateMetadata({ params }: ToolPageProps) {
 export default async function ToolPage({ params }: ToolPageProps) {
   const { toolId } = await params;
   const tool = getToolById(toolId);
-  const category = getCategoryByToolId(toolId);
 
   if (!tool) {
     notFound();
   }
 
-  const Icon = tool.icon;
   const ToolComponent = toolComponents[toolId];
 
   return (
-    <div className="p-6 md:p-8 lg:p-10">
-      <div className="max-w-4xl mx-auto">
-        {/* Tool Header */}
-        <div className="mb-8">
-          <div className="flex items-start gap-4 mb-4">
-            <div className="flex size-14 items-center justify-center rounded-xl bg-primary/10">
-              <Icon className="size-7 text-primary" />
-            </div>
-            <div className="flex-1">
-              <div className="flex items-center gap-3 flex-wrap">
-                <h1 className="text-2xl font-bold tracking-tight">{tool.name}</h1>
-                {category && (
-                  <Badge variant="secondary">{category.name}</Badge>
-                )}
-                {tool.beta && (
-                  <Badge variant="outline" className="border-amber-500/50 text-amber-600 dark:text-amber-400">Beta</Badge>
-                )}
-                {tool.new && (
-                  <Badge variant="outline" className="border-primary/50 text-primary">New</Badge>
-                )}
-              </div>
-              <p className="text-muted-foreground mt-1">{tool.description}</p>
-            </div>
-          </div>
-        </div>
+    <div className="px-4 py-6 md:px-8 lg:px-10">
+      <div className="mx-auto max-w-7xl">
+        <p className="mb-6 max-w-2xl text-sm text-muted-foreground">
+          {tool.description}
+        </p>
 
-        {/* Tool Content */}
         {ToolComponent ? (
           <ToolComponent />
         ) : (
@@ -165,19 +144,19 @@ export default async function ToolPage({ params }: ToolPageProps) {
 
             {/* Feature Preview */}
             <div className="mt-8 grid gap-4 sm:grid-cols-3">
-              <div className="p-4 rounded-lg border bg-card">
+              <div className="rounded-xl border bg-card p-4">
                 <h3 className="font-medium mb-1">Browser-based</h3>
                 <p className="text-sm text-muted-foreground">
                   All processing happens locally in your browser
                 </p>
               </div>
-              <div className="p-4 rounded-lg border bg-card">
+              <div className="rounded-xl border bg-card p-4">
                 <h3 className="font-medium mb-1">No uploads</h3>
                 <p className="text-sm text-muted-foreground">
                   Your files never leave your computer
                 </p>
               </div>
-              <div className="p-4 rounded-lg border bg-card">
+              <div className="rounded-xl border bg-card p-4">
                 <h3 className="font-medium mb-1">Free forever</h3>
                 <p className="text-sm text-muted-foreground">
                   No subscriptions, no hidden costs
@@ -187,17 +166,6 @@ export default async function ToolPage({ params }: ToolPageProps) {
           </>
         )}
 
-        {/* "...and all I got was this lousy sticker." One under every tool,
-            sitting well below the content. Peel it off to download. */}
-        <div className="mt-24 flex flex-col items-center gap-3 md:mt-32">
-          <PeelSticker
-            tool={toolId}
-            label={`${tool.name} — and all I got was this lousy sticker`}
-          />
-          <p className="text-sm text-muted-foreground">
-            Have a sticker! Peel it off to download.
-          </p>
-        </div>
       </div>
     </div>
   );

@@ -274,7 +274,7 @@ export function PasteImageTool() {
     const dateStamp = new Date().toLocaleDateString('en-CA');
     const link = document.createElement("a");
     link.href = image;
-    link.download = `delphitools-paste-image-${dateStamp}.png`;
+    link.download = `malpitools-paste-image-${dateStamp}.png`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

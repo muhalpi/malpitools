@@ -21,7 +21,7 @@ export function ColourNotationSelector() {
         <Button
           variant="ghost"
           size="sm"
-          className="h-8 gap-1.5 px-2 text-xs font-mono"
+          className="h-8 gap-1.5 px-2 text-xs"
           title="Colour notation preference"
         >
           <Pipette className="size-3.5" />

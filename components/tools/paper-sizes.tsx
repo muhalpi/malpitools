@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, type DragEvent } from "react";
 import { ChevronDown, Layers, LayoutGrid, Search, Upload, X } from "lucide-react";
 import { PDFDocument } from "pdf-lib";
 import { Button } from "@/components/ui/button";
@@ -16,6 +16,7 @@ import {
   findClosestSizes,
   type PaperSize
 } from "@/lib/paper-sizes";
+import { cn } from "@/lib/utils";
 
 const COLORS = {
   first: { bg: "bg-primary/20", border: "border-primary", text: "text-primary" },
@@ -35,6 +36,7 @@ export function PaperSizesTool() {
   const [searchQuery, setSearchQuery] = useState("");
   const [uploadDpi, setUploadDpi] = useState(300);
   const [uploadedDimensions, setUploadedDimensions] = useState<{width: number; height: number} | null>(null);
+  const [draggingFile, setDraggingFile] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const searchResult = parseSearchQuery(searchQuery);
 
@@ -42,16 +44,7 @@ export function PaperSizesTool() {
     localStorage.setItem("paperSizeUnit", unit);
   }, [unit]);
 
-  useEffect(() => {
-    if (uploadedDimensions) {
-      setSearchQuery(`${uploadedDimensions.width}x${uploadedDimensions.height}@${uploadDpi}dpi`);
-    }
-  }, [uploadDpi, uploadedDimensions]);
-
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
+  const readUploadedFile = async (file: File) => {
     if (file.type.startsWith("image/")) {
       const img = new Image();
       img.onload = () => {
@@ -83,9 +76,34 @@ export function PaperSizesTool() {
         console.error("Failed to parse PDF:", error);
       }
     }
+  };
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) await readUploadedFile(file);
 
     // Reset file input to allow re-uploading the same file
     e.target.value = '';
+  };
+
+  const handleFileDragOver = (e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = "copy";
+    setDraggingFile(true);
+  };
+
+  const handleFileDragLeave = () => {
+    setDraggingFile(false);
+  };
+
+  const handleFileDrop = async (e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setDraggingFile(false);
+
+    const file = Array.from(e.dataTransfer.files).find(
+      (item) => item.type.startsWith("image/") || item.type === "application/pdf" || /\.pdf$/i.test(item.name)
+    );
+    if (file) await readUploadedFile(file);
   };
 
   // Compute closest matches for dimension/pixel searches
@@ -119,6 +137,13 @@ export function PaperSizesTool() {
     const newSelected: [PaperSize | null, PaperSize | null] = [...selected];
     newSelected[slot] = null;
     setSelected(newSelected);
+  };
+
+  const updateUploadDpi = (dpi: number) => {
+    setUploadDpi(dpi);
+    if (uploadedDimensions) {
+      setSearchQuery(`${uploadedDimensions.width}x${uploadedDimensions.height}@${dpi}dpi`);
+    }
   };
 
   const maxDimension = Math.max(
@@ -187,7 +212,7 @@ export function PaperSizesTool() {
           </div>
           <div>
             <div className="text-muted-foreground">Inches</div>
-            <div className="font-bold">{formatFraction(size.widthIn)} × {formatFraction(size.heightIn)}"</div>
+            <div className="font-bold">{formatFraction(size.widthIn)} × {formatFraction(size.heightIn)}&quot;</div>
           </div>
         </div>
       </div>
@@ -308,7 +333,15 @@ export function PaperSizesTool() {
 
       {/* Search Bar */}
       <div className="space-y-3">
-        <div className="flex gap-2 items-center">
+        <div
+          onDragOver={handleFileDragOver}
+          onDragLeave={handleFileDragLeave}
+          onDrop={handleFileDrop}
+          className={cn(
+            "flex items-center gap-2 rounded-lg border border-dashed border-transparent p-1 transition-colors",
+            draggingFile && "border-primary/70 bg-primary/5"
+          )}
+        >
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
             <Input
@@ -357,7 +390,7 @@ export function PaperSizesTool() {
                 key={dpi}
                 variant={uploadDpi === dpi ? "default" : "outline"}
                 size="sm"
-                onClick={() => setUploadDpi(dpi)}
+                onClick={() => updateUploadDpi(dpi)}
               >
                 {dpi}
               </Button>

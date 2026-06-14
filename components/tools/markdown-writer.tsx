@@ -16,7 +16,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-const STORAGE_KEY = "delphitools-scratchpad";
+const STORAGE_KEY = "malpitools-scratchpad";
 
 function ToolButton({ onClick, children, title }: { onClick: () => void; children: React.ReactNode; title?: string }) {
   return (

@@ -176,6 +176,28 @@ export const toolCategories: ToolCategory[] = [
     ],
   },
   {
+    id: "audio",
+    name: "Audio",
+    tools: [
+      {
+        id: "audio-metadata",
+        name: "Audio Metadata",
+        description: "Edit and view audio file metadata",
+        icon: FileText,
+        href: "/tools/audio-metadata",
+        new: true,
+      },
+      {
+        id: "audio-trim-cut",
+        name: "Audio Trim & Cut",
+        description: "Trim audio and export MP3, WAV, WebM, Ogg, or M4A clips",
+        icon: Scissors,
+        href: "/tools/audio-trim-cut",
+        new: true,
+      },
+    ],
+  },
+  {
     id: "img-assets",
     name: "Images & Assets",
     tools: [
@@ -292,6 +314,14 @@ export const toolCategories: ToolCategory[] = [
         description: "Calculate optimal line heights",
         icon: Type,
         href: "/tools/line-height-calc",
+      },
+      {
+        id: "html-viewer",
+        name: "HTML Review",
+        description: "Run and inspect sandboxed HTML",
+        icon: FileCode,
+        href: "/tools/html-viewer",
+        new: true,
       },
       {
         id: "paper-sizes",

@@ -55,7 +55,7 @@ import {
 import { downloadBlob, downloadText } from "@/lib/download";
 import { injectPrintStyles, printHtmlInIframe } from "@/lib/print-pdf";
 
-const SCRATCHPAD_KEY = "delphitools-scratchpad";
+const SCRATCHPAD_KEY = "malpitools-scratchpad";
 const PANDOC_VERSION = "3.9";
 
 type InputMode = "paste" | "upload";

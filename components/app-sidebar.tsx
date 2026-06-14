@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation";
 import { Home, Info, Search, Star, X } from "lucide-react";
 
 import { toolCategories, featuredTools } from "@/lib/tools";
-import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import {
   Sidebar,
@@ -28,12 +27,22 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+  APP_MADE_BY_NAME,
+  APP_NAME,
+  APP_SOURCE_LABEL,
+  APP_SOURCE_URL,
+  FORK_MAINTAINER_NAME,
+  ORIGINAL_ACKNOWLEDGEMENTS_URL,
+  ORIGINAL_AUTHOR_NAME,
+  ORIGINAL_CONTRIBUTORS,
+  ORIGINAL_PROJECT_NAME,
+  ORIGINAL_SOURCE_LABEL,
+  ORIGINAL_SOURCE_URL,
+} from "@/lib/branding";
 
 // Inlined at build time from next.config.ts (git HEAD, env override, or "dev").
 const COMMIT_SHA = process.env.NEXT_PUBLIC_COMMIT_SHA ?? "dev";
-
-// Pride Month styling, baked in at build time (auto-on in June). See next.config.ts.
-const PRIDE = process.env.NEXT_PUBLIC_PRIDE === "1";
 
 export function AppSidebar() {
   const pathname = usePathname();
@@ -66,31 +75,19 @@ export function AppSidebar() {
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <Link href="/" className="group/brand">
-                <div className="flex aspect-square size-12 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+                <div className="flex aspect-square size-12 items-center justify-center rounded-lg border border-sidebar-border bg-card">
                   <img
-                    src="/delphi-lowlod.png"
+                    src="/malpitools-icon.svg"
                     width={64}
                     height={64}
-                    alt="delphitools logo"
-                    className={cn(
-                      "rounded-lg border-2",
-                      PRIDE ? "pride-ring" : "border-green-800"
-                    )}
+                    alt={`${APP_NAME} logo`}
+                    className="rounded-lg border border-border"
                   />
                 </div>
                 <div className="flex flex-col gap-0.5 leading-none">
-                  <span className={cn("font-semibold", PRIDE && "pride-wordmark")}>
-                    delphitools
-                  </span>
+                  <span className="font-semibold">{APP_NAME}</span>
                   <span className="text-xs text-muted-foreground">
-                    <span
-                      className={cn(
-                        "group-hover/brand:hidden",
-                        PRIDE && "pride-tagline"
-                      )}
-                    >
-                      {PRIDE ? "trans rights" : "indie tools"}
-                    </span>
+                    <span className="group-hover/brand:hidden">indie tools</span>
                     <span
                       className="hidden font-mono group-hover/brand:inline"
                       title="Build commit"
@@ -158,7 +155,7 @@ export function AppSidebar() {
         {filteredFeatured.length > 0 && (
         <SidebarGroup>
           <SidebarGroupLabel className="flex items-center gap-1.5">
-            <Star className="size-3 text-amber-500 fill-amber-500" aria-hidden="true" />
+            <Star className="size-3 text-primary fill-primary" aria-hidden="true" />
             Greatest Hits
           </SidebarGroupLabel>
           <SidebarGroupContent>
@@ -172,7 +169,7 @@ export function AppSidebar() {
                       asChild
                       isActive={isActive}
                       tooltip={tool.name}
-                      className="text-amber-700 dark:text-amber-400 hover:text-amber-800 dark:hover:text-amber-300"
+                      className="text-sidebar-foreground"
                     >
                       <Link href={tool.href} prefetch={false}>
                         <Icon className="size-4" />
@@ -220,74 +217,99 @@ export function AppSidebar() {
       <SidebarFooter className="border-t border-sidebar-border">
         <Dialog>
           <DialogTrigger asChild>
-            <button type="button" className="w-full p-2 hover:bg-sidebar-accent rounded-md transition-colors">
+            <button type="button" className="w-full rounded-lg p-2 transition-colors hover:bg-sidebar-accent">
               <div className="text-xs text-muted-foreground text-left group-data-[collapsible=icon]:hidden">
                 <p>No logins. No tracking.</p>
                 <p className="mt-1 opacity-70">Long live the handmade web.</p>
               </div>
               <div className="hidden group-data-[collapsible=icon]:flex items-center justify-center">
                 <Info className="size-4 text-muted-foreground" aria-hidden="true" />
-                <span className="sr-only">About delphitools</span>
+                <span className="sr-only">About {APP_NAME}</span>
               </div>
             </button>
           </DialogTrigger>
           <DialogContent className="max-w-lg">
             <DialogHeader>
-              <DialogTitle>About delphitools</DialogTitle>
+              <DialogTitle>About {APP_NAME}</DialogTitle>
             </DialogHeader>
             <div className="space-y-4 text-sm text-muted-foreground">
               <p>
-                delphitools is a collection of small, focused utilities that respect your privacy
+                {APP_NAME} is a modified fork of {ORIGINAL_PROJECT_NAME}, a collection of small, focused utilities that respect your privacy
                 and work entirely in your browser. No data leaves your machine, no accounts required,
                 no tracking. Just tools that do what they say.
               </p>
               <p>
-                I love the web. The classic, real web full of weird things. And that web is out there. You just have to find it. And sometimes, you have to make it yourself.
+                Made by {APP_MADE_BY_NAME}. Based on {ORIGINAL_PROJECT_NAME} by {ORIGINAL_AUTHOR_NAME}, with original source and contributor credit preserved.
               </p>
             </div>
             <div className="grid gap-4 sm:grid-cols-2 text-sm pt-4 border-t">
               <div className="space-y-1">
                 <h3 className="font-medium text-foreground">Made by</h3>
+                <p className="text-muted-foreground">{APP_MADE_BY_NAME}</p>
+              </div>
+              <div className="space-y-1">
+                <h3 className="font-medium text-foreground">Fork maintainer</h3>
                 <p className="text-muted-foreground">
                   <a
-                    href="https://rmv.fyi"
+                    href="https://github.com/muhalpi"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="hover:text-primary transition-colors"
                   >
-                    delphi<span className="sr-only"> (opens in new tab)</span>
+                    {FORK_MAINTAINER_NAME}<span className="sr-only"> (opens in new tab)</span>
                   </a>
                 </p>
               </div>
               <div className="space-y-1">
-                <h3 className="font-medium text-foreground">Source</h3>
+                <h3 className="font-medium text-foreground">Based on</h3>
                 <p className="text-muted-foreground">
                   <a
-                    href="https://github.com/1612elphi/delphitools"
+                    href={ORIGINAL_SOURCE_URL}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="hover:text-primary transition-colors"
                   >
-                    1612elphi/delphitools<span className="sr-only"> (opens in new tab)</span>
+                    {ORIGINAL_PROJECT_NAME} by {ORIGINAL_AUTHOR_NAME}<span className="sr-only"> (opens in new tab)</span>
+                  </a>
+                </p>
+              </div>
+              <div className="space-y-1">
+                <h3 className="font-medium text-foreground">Original source</h3>
+                <p className="text-muted-foreground">
+                  <a
+                    href={ORIGINAL_SOURCE_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-primary transition-colors"
+                  >
+                    {ORIGINAL_SOURCE_LABEL}<span className="sr-only"> (opens in new tab)</span>
+                  </a>
+                </p>
+              </div>
+              <div className="space-y-1">
+                <h3 className="font-medium text-foreground">This fork source</h3>
+                <p className="text-muted-foreground">
+                  <a
+                    href={APP_SOURCE_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-primary transition-colors"
+                  >
+                    {APP_SOURCE_LABEL}<span className="sr-only"> (opens in new tab)</span>
                   </a>
                 </p>
               </div>
             </div>
             <div className="pt-4 border-t space-y-2">
-              <h3 className="font-medium text-foreground text-sm">Contributors</h3>
+              <h3 className="font-medium text-foreground text-sm">Original contributors</h3>
               <div className="flex flex-wrap gap-1.5">
-                {[
-                  { name: "Himanshu Balani", url: "https://github.com/himanshubalani" },
-                  { name: "Mahmoud Ashraf", url: "https://github.com/SNO7E-G" },
-                  { name: "Moamal Alaa", url: "https://github.com/Moamal-2000" },
-                  { name: "Claude", url: "https://rmv.fyi/notes/i-hope-you-don-t-use-generative-ai" },
-                ].map((person) => (
+                {ORIGINAL_CONTRIBUTORS.map((person) => (
                   <a
                     key={person.name}
                     href={person.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xs px-2 py-1 rounded-md bg-muted hover:bg-muted/80 text-muted-foreground hover:text-foreground transition-colors"
+                    className="rounded-full border bg-card px-2 py-1 text-xs text-muted-foreground transition-colors hover:text-foreground"
                   >
                     {person.name}<span className="sr-only"> (opens in new tab)</span>
                   </a>
@@ -300,15 +322,18 @@ export function AppSidebar() {
                   rel="noopener noreferrer"
                   className="underline hover:text-muted-foreground transition-colors"
                 >
-                  Behind the scenes of delphitools<span className="sr-only"> (opens in new tab)</span>
+                  Original behind-the-scenes note<span className="sr-only"> (opens in new tab)</span>
                 </a>
               </p>
             </div>
             <div className="pt-4 border-t space-y-2">
+              <h3 className="font-medium text-foreground text-sm">Additional contributors</h3>
+              <p className="text-xs text-muted-foreground">{FORK_MAINTAINER_NAME}</p>
+            </div>
+            <div className="pt-4 border-t space-y-2">
               <h3 className="font-medium text-foreground text-sm">With thanks to</h3>
               <p className="text-xs text-muted-foreground">
-                Folks who, instead of donating to delphitools, gave to Wikipedia or the EFF
-                on its behalf.
+                Folks who, instead of donating to the original {ORIGINAL_PROJECT_NAME}, gave to Wikipedia or the EFF on its behalf.
               </p>
               <div className="flex flex-wrap gap-1.5">
                 {[
@@ -320,7 +345,7 @@ export function AppSidebar() {
                     href={donor.orgUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xs px-2 py-1 rounded-md bg-muted hover:bg-muted/80 text-muted-foreground hover:text-foreground transition-colors"
+                    className="rounded-full border bg-card px-2 py-1 text-xs text-muted-foreground transition-colors hover:text-foreground"
                   >
                     {donor.name} · {donor.org}<span className="sr-only"> (opens in new tab)</span>
                   </a>
@@ -343,7 +368,7 @@ export function AppSidebar() {
                     href={lib.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xs px-2 py-1 rounded-md bg-muted hover:bg-muted/80 text-muted-foreground hover:text-foreground transition-colors"
+                    className="rounded-full border bg-card px-2 py-1 text-xs text-muted-foreground transition-colors hover:text-foreground"
                   >
                     {lib.name}<span className="sr-only"> (opens in new tab)</span>
                   </a>
@@ -352,7 +377,7 @@ export function AppSidebar() {
               <p className="text-xs text-muted-foreground/60 pt-2">
                 Plus{" "}
                 <a
-                  href="https://github.com/1612elphi/delphitools/blob/main/ACKNOWLEDGEMENTS.md"
+                  href={ORIGINAL_ACKNOWLEDGEMENTS_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="underline hover:text-muted-foreground transition-colors"

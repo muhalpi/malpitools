@@ -40,7 +40,7 @@ import { blockChoices, type BlockChoice } from "@/lib/editor/block-types";
 import { DEFAULT_SETTINGS, clearStoredSettings, type EditorSettings } from "@/lib/editor/settings";
 import { copyRichText, exportHtml, exportMarkdown, exportPdf } from "@/lib/editor/export";
 
-const DOC_KEY = "delphitools-editor";
+const DOC_KEY = "malpitools-editor";
 const GUTTER_W = 132; // px reserved for the gutter column
 const SEED = "";
 // Ghost text shown in an empty document (placeholder).

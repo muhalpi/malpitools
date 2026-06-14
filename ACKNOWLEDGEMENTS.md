@@ -1,6 +1,10 @@
 # Acknowledgements
 
-delphitools is built on the shoulders of many excellent open source projects. Thank you to all the maintainers and contributors who make these tools available.
+malpitools is a modified fork of delphitools and is built on the shoulders of many excellent open source projects. Thank you to the original delphitools author, original contributors, and all maintainers who make these tools available.
+
+Original project: [1612elphi/delphitools](https://github.com/1612elphi/delphitools)
+
+This fork: [muhalpi/malpitools](https://github.com/muhalpi/malpitools)
 
 ## Core Framework
 

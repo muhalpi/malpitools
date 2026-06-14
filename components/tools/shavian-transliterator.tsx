@@ -518,7 +518,7 @@ async function exportGloss(tokens: GlossToken[]) {
   ctx.font = "12px system-ui";
   ctx.fillStyle = BRAND_COLOR;
   ctx.textAlign = "right";
-  ctx.fillText("delphi.tools", CANVAS_WIDTH - PADDING, canvas.height - PADDING + 8);
+  ctx.fillText("malpitools", CANVAS_WIDTH - PADDING, canvas.height - PADDING + 8);
 
   // Download
   const link = document.createElement("a");

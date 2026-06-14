@@ -1,13 +1,14 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { Home, Sparkles } from "lucide-react";
+import { Home } from "lucide-react";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
 import { getToolById, getCategoryByToolId } from "@/lib/tools";
 import { Badge } from "@/components/ui/badge";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { ColourNotationSelector } from "@/components/colour-notation-selector";
+import { APP_NAME } from "@/lib/branding";
 
 export function AppHeader() {
   const pathname = usePathname();
@@ -21,15 +22,15 @@ export function AppHeader() {
   const category = toolId ? getCategoryByToolId(toolId) : null;
 
   return (
-    <header className="sticky top-0 z-50 flex h-14 shrink-0 items-center gap-2 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-4">
+    <header className="sticky top-0 z-50 flex h-14 shrink-0 items-center gap-2 border-b bg-card/95 px-4 backdrop-blur supports-[backdrop-filter]:bg-card/80">
       <SidebarTrigger className="-ml-1" />
       <Separator orientation="vertical" className="mr-2 h-4" />
 
       {tool ? (
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2">
-            <tool.icon className="size-5 text-muted-foreground" />
-            <h1 className="text-lg font-semibold">{tool.name}</h1>
+            <tool.icon className="size-4 text-primary" />
+            <h1 className="text-sm font-semibold">{tool.name}</h1>
           </div>
           {category && (
             <Badge variant="secondary" className="hidden sm:inline-flex">
@@ -39,13 +40,13 @@ export function AppHeader() {
         </div>
       ) : pathname === "/" ? (
         <div className="flex items-center gap-2">
-          <Home className="size-5 text-muted-foreground" />
-          <h1 className="text-lg font-semibold">Home</h1>
+          <Home className="size-4 text-primary" />
+          <h1 className="text-sm font-semibold">Home</h1>
         </div>
       ) : (
         <div className="flex items-center gap-2">
-          <img src="/delphi.png" width={40} height={40} alt="delphitools logo" className="size-5 text-muted-foreground" />
-          <h1 className="text-lg font-semibold">delphitools</h1>
+          <img src="/malpitools-icon.svg" width={40} height={40} alt={`${APP_NAME} logo`} className="size-5" />
+          <h1 className="text-sm font-semibold">{APP_NAME}</h1>
         </div>
       )}
 

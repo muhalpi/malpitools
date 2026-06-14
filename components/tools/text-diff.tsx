@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useDeferredValue, useEffect, useMemo, useRef, useState, type DragEvent } from "react";
 import { Check, ClipboardPaste, Copy, FolderOpen, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -66,15 +66,13 @@ function TextPane({ label, value, onChange, wrap }: TextPaneProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const mirrorRef = useRef<HTMLDivElement>(null);
   const [copied, setCopied] = useState(false);
+  const [draggingFile, setDraggingFile] = useState(false);
 
   const lines = useMemo(() => (value ? value.split("\n") : [""]), [value]);
   const [lineHeights, setLineHeights] = useState<number[]>([]);
 
   useEffect(() => {
-    if (!wrap) {
-      setLineHeights([]);
-      return;
-    }
+    if (!wrap) return;
 
     const measure = () => {
       const mirror = mirrorRef.current;
@@ -107,6 +105,26 @@ function TextPane({ label, value, onChange, wrap }: TextPaneProps) {
     if (file.size > 5 * 1024 * 1024) return;
     const text = await file.text();
     onChange(text);
+  };
+
+  const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = "copy";
+    setDraggingFile(true);
+  };
+
+  const handleDragLeave = () => {
+    setDraggingFile(false);
+  };
+
+  const handleDrop = (e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setDraggingFile(false);
+
+    const file = Array.from(e.dataTransfer.files).find(
+      (item) => item.type.startsWith("text/") || /\.(txt|md|json|csv|log|xml|ya?ml|html|css|jsx?|tsx?)$/i.test(item.name)
+    );
+    if (file) void handleFile(file);
   };
 
   const pasteFromClipboard = async () => {
@@ -198,7 +216,15 @@ function TextPane({ label, value, onChange, wrap }: TextPaneProps) {
         </TooltipProvider>
       </div>
 
-      <div className="flex rounded-lg border bg-background overflow-hidden focus-within:ring-2 focus-within:ring-ring h-[300px]">
+      <div
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
+        onDrop={handleDrop}
+        className={cn(
+          "flex h-[300px] overflow-hidden rounded-lg border bg-background focus-within:ring-2 focus-within:ring-ring",
+          draggingFile && "border-primary bg-primary/5"
+        )}
+      >
         {wrap && (
           <div
             ref={mirrorRef}

@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   app:
-    # Delphitools Next.js Application - Powered by Bun
+    # malpitools Next.js Application - Powered by Bun
     build:
       context: .
       dockerfile: Dockerfile
@@ -12,11 +12,11 @@ services:
       args:
         COMMIT_SHA: ${COMMIT_SHA:-dev}
       cache_from:
-        - type=registry,ref=delphitools:latest
+        - type=registry,ref=malpitools:latest
     
     # Image identification
-    image: delphitools:latest
-    container_name: delphitools-app
+    image: malpitools:latest
+    container_name: malpitools-app
     
     # Port mappings (host:container) - serve static site via nginx (container port 80)
     ports:
@@ -57,7 +57,7 @@ services:
 # Networks
 networks:
   default:
-    name: delphitools-network
+    name: malpitools-network
     driver: bridge
 
 # Named volumes
