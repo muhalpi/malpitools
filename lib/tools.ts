@@ -47,6 +47,7 @@ import {
   GitCompare,
   KeyRound,
   ScanQrCode,
+  ReceiptText,
 } from "lucide-react";
 
 export interface Tool {
@@ -408,6 +409,14 @@ export const toolCategories: ToolCategory[] = [
     id: "other-tools",
     name: "Other Tools",
     tools: [
+      {
+        id: "invoice-generator",
+        name: "Invoice Generator",
+        description: "Create branded invoices with line items, taxes, presets, and PDF export",
+        icon: ReceiptText,
+        href: "/tools/invoice-generator",
+        new: true,
+      },
       {
         id: "code-genny",
         name: "Barcode Generator",

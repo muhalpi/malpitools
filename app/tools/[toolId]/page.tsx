@@ -65,6 +65,7 @@ const toolComponents: Record<string, React.ComponentType> = {
   "html-viewer": dynamic(() => import("@/components/tools/html-viewer").then(mod => mod.HtmlViewerTool)),
   "merge-pdf": dynamic(() => import("@/components/tools/merge-pdf").then(mod => mod.MergePdfTool)),
   "split-pdf": dynamic(() => import("@/components/tools/split-pdf").then(mod => mod.SplitPdfTool)),
+  "invoice-generator": dynamic(() => import("@/components/tools/invoice-generator").then(mod => mod.InvoiceGeneratorTool)),
 };
 
 interface ToolPageProps {
