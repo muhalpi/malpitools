@@ -10,6 +10,7 @@ const toolComponents: Record<string, React.ComponentType> = {
   "px-to-rem": dynamic(() => import("@/components/tools/px-to-rem").then(mod => mod.PxToRemTool)),
   "word-counter": dynamic(() => import("@/components/tools/word-counter").then(mod => mod.WordCounterTool)),
   "qr-genny": dynamic(() => import("@/components/tools/qr-generator").then(mod => mod.QrGeneratorTool)),
+  "qr-scanner": dynamic(() => import("@/components/tools/qr-scanner").then(mod => mod.QrScannerTool)),
   "code-genny": dynamic(() => import("@/components/tools/code-generator").then(mod => mod.CodeGeneratorTool)),
   "image-converter": dynamic(() => import("@/components/tools/image-converter").then(mod => mod.ImageConverterTool)),
   "artwork-enhancer": dynamic(() => import("@/components/tools/artwork-enhancer").then(mod => mod.ArtworkEnhancerTool)),

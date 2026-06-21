@@ -46,6 +46,7 @@ import {
   Wind,
   GitCompare,
   KeyRound,
+  ScanQrCode,
 } from "lucide-react";
 
 export interface Tool {
@@ -435,6 +436,14 @@ export const toolCategories: ToolCategory[] = [
         description: "Generate styled QR codes with custom colors, shapes, and logos",
         icon: QrCode,
         href: "/tools/qr-genny",
+      },
+      {
+        id: "qr-scanner",
+        name: "QR Scanner",
+        description: "Scan QR codes with your camera or from an uploaded image",
+        icon: ScanQrCode,
+        href: "/tools/qr-scanner",
+        new: true,
       },
       {
         id: "regex-tester",
