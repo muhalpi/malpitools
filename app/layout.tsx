@@ -12,9 +12,9 @@ export const metadata: Metadata = {
   title: APP_NAME,
   description: APP_DESCRIPTION,
   icons: {
-    icon: "/favicon-512x512.png",
-    shortcut: "/favicon-512x512.png",
-    apple: "/favicon-512x512.png",
+    icon: "/malpitools-icon.png",
+    shortcut: "/malpitools-icon.png",
+    apple: "/malpitools-icon.png",
   },
 };
 

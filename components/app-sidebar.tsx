@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Info, Search, Star, X } from "lucide-react";
+import { HeartHandshake, Home, Info, Search, Star, X } from "lucide-react";
 
 import { toolCategories, featuredTools } from "@/lib/tools";
 import { Input } from "@/components/ui/input";
@@ -139,6 +139,18 @@ export function AppSidebar() {
                     <Link href="/">
                       <Home className="size-4" />
                       <span>Home</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+                <SidebarMenuItem>
+                  <SidebarMenuButton
+                    asChild
+                    isActive={pathname === "/donate"}
+                    tooltip="Donasi"
+                  >
+                    <Link href="/donate">
+                      <HeartHandshake className="size-4" />
+                      <span>Donasi</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>

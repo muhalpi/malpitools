@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { Home } from "lucide-react";
+import { HeartHandshake, Home } from "lucide-react";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
 import { getToolById, getCategoryByToolId } from "@/lib/tools";
@@ -42,6 +42,11 @@ export function AppHeader() {
         <div className="flex items-center gap-2">
           <Home className="size-4 text-primary" />
           <h1 className="text-sm font-semibold">Home</h1>
+        </div>
+      ) : pathname === "/donate" ? (
+        <div className="flex items-center gap-2">
+          <HeartHandshake className="size-4 text-primary" />
+          <h1 className="text-sm font-semibold">Donasi</h1>
         </div>
       ) : (
         <div className="flex items-center gap-2">
