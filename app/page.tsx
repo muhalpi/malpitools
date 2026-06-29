@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Calculator, ExternalLink, FileText, Star } from "lucide-react";
+import { ArrowRight, Calculator, ExternalLink, FileText, Scale, Star } from "lucide-react";
 import { toolCategories, featuredTools } from "@/lib/tools";
 import {
   APP_MADE_BY_NAME,
@@ -58,8 +58,9 @@ export default function Home() {
               A collection of small, low stakes and low effort tools.
             </p>
             <p>
-              No logins, no registration, no data collection. I can&apos;t believe
-              I have to say that. Long live the handmade web.
+              No logins, no registration, no data collection. The tools run
+              locally in your browser, so your files and inputs stay on your
+              device.
             </p>
             <p>
               Made by {APP_MADE_BY_NAME}. Based on{" "}
@@ -180,12 +181,12 @@ export default function Home() {
       {/* Another project links */}
       <section className="mt-16">
         <h2 className="mb-4 text-2xl font-bold text-foreground">
-          another project links
+          Another project links
         </h2>
         <p className="mb-4 max-w-2xl text-sm text-muted-foreground">
           A couple of other small projects maintained by {FORK_MAINTAINER_NAME}.
         </p>
-        <div className="grid gap-4 lg:grid-cols-2">
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           <a
             href="https://buatcv-ats.vercel.app/"
             target="_blank"
@@ -299,6 +300,83 @@ export default function Home() {
               </div>
             </div>
           </a>
+
+          <a
+            href="https://syariah.malpi.my.id/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group block"
+          >
+            <div className="relative h-full min-h-64 overflow-hidden rounded-lg border border-[#2e655a] bg-[#071f1b] p-6 text-[#f8f3df] transition-all hover:shadow-[var(--notion-soft-shadow)]">
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 opacity-[0.12]"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(135deg, #e2c56a 1px, transparent 1px), linear-gradient(45deg, #2e655a 1px, transparent 1px)",
+                  backgroundSize: "26px 26px",
+                }}
+              />
+              <div
+                aria-hidden="true"
+                className="absolute -right-8 top-7 size-36 rounded-full border border-[#e2c56a]/35 bg-[#0f342e] transition-transform duration-500 group-hover:rotate-6 group-hover:scale-105"
+              >
+                <span className="absolute left-8 top-8 size-7 rounded-full bg-[#e2c56a]" />
+                <span className="absolute left-4 top-20 size-5 rounded-full bg-[#f8f3df]/50" />
+                <span className="absolute left-16 top-20 size-5 rounded-full bg-[#f8f3df]/50" />
+                <span className="absolute left-11 top-14 h-8 w-px bg-[#e2c56a]/60" />
+                <span className="absolute left-6 top-20 h-px w-16 bg-[#e2c56a]/60" />
+              </div>
+              <div
+                aria-hidden="true"
+                className="absolute right-10 top-10 grid w-28 gap-2 rounded-md border border-[#e2c56a]/40 bg-[#f8f3df] p-3 shadow-2xl transition-transform duration-300 group-hover:-translate-y-1 group-hover:-rotate-2"
+              >
+                <span className="h-2 w-16 rounded-full bg-[#071f1b]" />
+                <span className="h-1.5 rounded-full bg-[#071f1b]/35" />
+                <span className="h-1.5 w-4/5 rounded-full bg-[#071f1b]/35" />
+                <div className="grid grid-cols-3 gap-1 pt-3 text-center text-[10px] font-bold text-[#071f1b]">
+                  <span className="rounded-sm bg-[#e2c56a] py-2">1/2</span>
+                  <span className="rounded-sm bg-[#2e655a]/35 py-2">1/4</span>
+                  <span className="rounded-sm bg-[#d86f45]/85 py-2">1/8</span>
+                </div>
+              </div>
+              <div
+                aria-hidden="true"
+                className="absolute bottom-5 right-10 flex gap-1.5 transition-transform duration-300 group-hover:translate-x-1"
+              >
+                {["waris", "faraid", "ahli waris"].map((label) => (
+                  <span
+                    key={label}
+                    className="rounded-full border border-[#e2c56a]/35 bg-[#071f1b]/80 px-2 py-1 text-[10px] font-semibold uppercase text-[#e2c56a]"
+                  >
+                    {label}
+                  </span>
+                ))}
+              </div>
+              <div className="relative flex min-h-52 max-w-md flex-col justify-start gap-6 pr-32 sm:pr-36">
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex size-11 items-center justify-center rounded-lg bg-[#e2c56a] text-[#071f1b] transition-transform duration-300 group-hover:rotate-3">
+                    <Scale className="size-5" aria-hidden="true" />
+                  </div>
+                  <ExternalLink
+                    className="size-3.5 opacity-0 transition-opacity group-hover:opacity-100"
+                    aria-hidden="true"
+                  />
+                </div>
+                <div className="space-y-3">
+                  <div className="text-[10px] font-semibold uppercase text-[#e2c56a]">
+                    Faraid Calculator
+                  </div>
+                  <h3 className="text-3xl font-bold leading-none text-[#f8f3df]">
+                    Hitung Syariah
+                  </h3>
+                  <p className="hidden text-sm leading-relaxed text-[#f8f3df]/70 sm:block">
+                    Calculate faraid inheritance shares clearly.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </a>
         </div>
       </section>
 
@@ -315,17 +393,6 @@ export default function Home() {
             </p>
             <p>
               This fork preserves attribution to the original author and contributors while adding changes maintained by {FORK_MAINTAINER_NAME}.
-            </p>
-            <p>
-              The original project asks that, if you would like to donate, please donate to{" "}
-              <a className="underline hover:text-primary" href="https://donate.wikimedia.org" target="_blank" rel="noopener noreferrer">
-                Wikipedia<span className="sr-only"> (opens in new tab)</span>
-              </a>{" "}
-              or the{" "}
-              <a className="underline hover:text-primary" href="https://www.eff.org/donate" target="_blank" rel="noopener noreferrer">
-                EFF<span className="sr-only"> (opens in new tab)</span>
-              </a>{" "}
-              instead.
             </p>
           </div>
 

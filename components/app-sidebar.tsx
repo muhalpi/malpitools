@@ -146,11 +146,11 @@ export function AppSidebar() {
                   <SidebarMenuButton
                     asChild
                     isActive={pathname === "/donate"}
-                    tooltip="Donasi"
+                    tooltip="Donate"
                   >
                     <Link href="/donate">
                       <HeartHandshake className="size-4" />
-                      <span>Donasi</span>
+                      <span>Donate</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>

@@ -445,7 +445,7 @@ export function QrScannerTool() {
                 onDragLeave={() => setDragging(false)}
                 onDrop={handleDrop}
                 className={cn(
-                  "flex min-h-64 cursor-pointer flex-col items-center justify-center gap-4 overflow-hidden rounded-xl border border-dashed bg-muted/20 p-6 text-center outline-none transition-colors hover:border-primary/60 hover:bg-primary/5 focus-visible:ring-2 focus-visible:ring-ring",
+                  "flex min-h-64 w-full cursor-pointer flex-col items-center justify-center gap-4 overflow-hidden rounded-xl border border-dashed bg-muted/20 p-6 text-center outline-none transition-colors hover:border-primary/60 hover:bg-primary/5 focus-visible:ring-2 focus-visible:ring-ring",
                   dragging && "border-primary bg-primary/5"
                 )}
               >

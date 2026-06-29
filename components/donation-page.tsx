@@ -38,21 +38,21 @@ const DONATION_METHODS: DonationMethod[] = [
     name: "BCA",
     number: "8620415481",
     Icon: Landmark,
-    note: "Transfer bank",
+    note: "Bank transfer",
   },
   {
     id: "bri",
     name: "BRI",
     number: "313601028277532",
     Icon: Landmark,
-    note: "Transfer bank",
+    note: "Bank transfer",
   },
   {
     id: "seabank",
     name: "SeaBank",
     number: "901901068426",
     Icon: Landmark,
-    note: "Transfer bank",
+    note: "Bank transfer",
   },
   {
     id: "wallet",
@@ -105,7 +105,7 @@ function crc16(data: string) {
 
 function makeQrisNominal(staticQris: string, amount: number) {
   if (!Number.isInteger(amount) || amount < 1) {
-    throw new Error("Nominal tidak valid.");
+    throw new Error("Invalid amount.");
   }
 
   const payload = staticQris.trim().replace(/6304[0-9A-Fa-f]{4}$/, "");
@@ -172,7 +172,7 @@ export function DonationPage() {
 
     if (!Number.isInteger(amountValue) || amountValue < 1) {
       setQrDataUrl(null);
-      setError("Nominal tidak valid.");
+      setError("Invalid amount.");
       setGenerating(false);
       return;
     }
@@ -223,7 +223,7 @@ export function DonationPage() {
       } catch {
         if (!cancelled) {
           setQrDataUrl(null);
-          setError("QRIS belum bisa dibuat. Coba nominal lain.");
+          setError("QRIS could not be generated. Try another amount.");
         }
       } finally {
         if (!cancelled) {
@@ -276,55 +276,55 @@ export function DonationPage() {
 
     const link = document.createElement("a");
     link.href = qrDataUrl;
-    link.download = `qris-donasi-${amountValue}.png`;
+    link.download = `qris-donation-${amountValue}.png`;
     link.click();
   };
 
   return (
     <div className="min-h-[calc(100vh-3.5rem)] bg-background text-foreground">
-      <section className="border-b border-border bg-primary/5">
-        <div className="mx-auto grid max-w-6xl gap-6 px-4 py-8 md:px-8 lg:grid-cols-[1.1fr_0.9fr] lg:px-10">
-          <div className="space-y-5">
+      <section className="border-b border-border bg-card">
+        <div className="mx-auto max-w-6xl px-4 py-8 md:px-8 lg:px-10">
+          <div className="max-w-3xl space-y-5">
             <div className="inline-flex items-center gap-2 rounded-lg border border-primary/20 bg-card px-3 py-1 text-sm font-medium text-foreground shadow-[var(--notion-soft-shadow)]">
               <HeartHandshake className="size-4 text-primary" aria-hidden="true" />
-              Donasi untuk Malpitools
+              Support Malpitools
             </div>
-            <div className="max-w-2xl space-y-3">
+            <div className="space-y-3">
               <h1
                 className="text-4xl font-bold leading-none text-foreground md:text-5xl"
               >
-                Dukung pengembangan tools ini agar tetap ada dan gratis.
+                Support these tools so they stay available and free.
               </h1>
               <p className="max-w-xl text-sm leading-6 text-muted-foreground">
-                Kamu bisa berdonasi lewat transfer bank, e-wallet, atau QRIS.
-                Semua rekening di bawah ini atas nama {ACCOUNT_HOLDER}.
+                You can donate by bank transfer, e-wallet, or QRIS. All
+                accounts below are under {ACCOUNT_HOLDER}.
               </p>
             </div>
           </div>
 
-          <div className="flex items-start gap-4 rounded-lg border border-border bg-card p-5 shadow-[var(--notion-soft-shadow)]">
-            <div className="flex size-11 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+          <div className="mt-6 flex flex-col gap-3 rounded-lg border border-primary/20 bg-primary/5 p-4 sm:flex-row sm:items-start">
+            <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground">
               <ShieldCheck className="size-5" aria-hidden="true" />
             </div>
-            <div className="space-y-2">
-              <h2 className="text-base font-semibold">QRIS resmi dan aman</h2>
+            <div className="space-y-1">
+              <h2 className="text-base font-semibold">Official and safe QRIS</h2>
               <p className="text-sm leading-6 text-muted-foreground">
-                QRIS ini resmi untuk halaman donasi ini dan aman digunakan. Kode
-                tidak meminta PIN, OTP, kata sandi, atau akses akun, sehingga
-                tidak membahayakan user.
+                This QRIS is official for this donation page and safe to use.
+                It never asks for your PIN, OTP, password, or account access,
+                so it does not put users at risk.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      <div className="mx-auto grid max-w-6xl gap-6 px-4 py-8 md:px-8 lg:grid-cols-[0.95fr_1.05fr] lg:px-10">
+      <div className="mx-auto grid max-w-6xl gap-6 px-4 py-8 md:px-8 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-start lg:px-10">
         <section className="space-y-4">
           <div className="flex items-center justify-between gap-4">
             <div>
-              <h2 className="text-xl font-semibold">Transfer bank dan e-wallet</h2>
+              <h2 className="text-xl font-semibold">Bank transfer and e-wallet</h2>
               <p className="mt-1 text-sm text-muted-foreground">
-                Salin nomor tujuan, lalu lanjutkan dari aplikasi pembayaranmu.
+                Copy the destination number, then continue in your payment app.
               </p>
             </div>
             <div className="hidden size-11 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary sm:flex">
@@ -358,7 +358,7 @@ export function DonationPage() {
                           {method.number}
                         </p>
                         <p className="text-xs text-muted-foreground">
-                          a.n. {ACCOUNT_HOLDER}
+                          Account holder: {ACCOUNT_HOLDER}
                         </p>
                       </div>
                     </div>
@@ -373,12 +373,12 @@ export function DonationPage() {
                       {isCopied ? (
                         <>
                           <Check className="mr-2 size-4" aria-hidden="true" />
-                          Tersalin
+                          Copied
                         </>
                       ) : (
                         <>
                           <Clipboard className="mr-2 size-4" aria-hidden="true" />
-                          Salin
+                          Copy
                         </>
                       )}
                     </Button>
@@ -389,107 +389,115 @@ export function DonationPage() {
           </div>
         </section>
 
-        <section className="rounded-lg border border-border bg-card p-5 shadow-[var(--notion-soft-shadow)]">
-          <div className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
-            <div className="space-y-5">
-              <div className="flex items-start gap-3">
-                <div className="flex size-11 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-                  <QrCode className="size-5" aria-hidden="true" />
-                </div>
-                <div>
-                  <h2 className="text-xl font-semibold">QRIS donasi</h2>
-                  <p className="mt-1 text-sm leading-6 text-muted-foreground">
-                    Selain rekening di atas, kamu bisa menggunakan QRIS resmi
-                    dari halaman donasi.
-                  </p>
-                </div>
+        <section className="rounded-lg border border-border bg-card p-5 shadow-[var(--notion-soft-shadow)] lg:sticky lg:top-20">
+          <div className="flex items-start gap-3">
+            <div className="flex size-11 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+              <QrCode className="size-5" aria-hidden="true" />
+            </div>
+            <div>
+              <h2 className="text-xl font-semibold">Donation QRIS</h2>
+              <p className="mt-1 text-sm leading-6 text-muted-foreground">
+                Besides the accounts above, you can use the official QRIS from
+                this donation page.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-5 space-y-4">
+            <div className="space-y-3">
+              <Label htmlFor="donation-amount">Donation amount</Label>
+              <div className="relative">
+                <Banknote
+                  className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
+                  aria-hidden="true"
+                />
+                <Input
+                  id="donation-amount"
+                  value={amount}
+                  onChange={(event) => setAmount(sanitizeAmount(event.target.value))}
+                  inputMode="numeric"
+                  pattern="[0-9]*"
+                  placeholder="25000"
+                  className="h-12 rounded-[4px] bg-background pl-10 font-mono text-base"
+                  aria-describedby={error ? "qris-error" : "qris-amount-preview"}
+                />
               </div>
 
-              <div className="space-y-3">
-                <Label htmlFor="donation-amount">Nominal donasi</Label>
-                <div className="relative">
-                  <Banknote
-                    className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
-                    aria-hidden="true"
-                  />
-                  <Input
-                    id="donation-amount"
-                    value={amount}
-                    onChange={(event) => setAmount(sanitizeAmount(event.target.value))}
-                    inputMode="numeric"
-                    pattern="[0-9]*"
-                    placeholder="25000"
-                    className="h-12 rounded-[4px] bg-background pl-10 font-mono text-base"
-                    aria-describedby={error ? "qris-error" : "qris-amount-preview"}
-                  />
-                </div>
-                <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 xl:grid-cols-2">
-                  {PRESET_AMOUNTS.map((preset) => (
-                    <Button
-                      key={preset}
-                      type="button"
-                      variant={amountValue === preset ? "default" : "outline"}
-                      size="sm"
-                      className="h-9 rounded-[4px]"
-                      onClick={() => setAmount(preset.toString())}
-                      aria-pressed={amountValue === preset}
-                    >
-                      {formatRupiah(preset)}
-                    </Button>
-                  ))}
-                </div>
-                <p
-                  id="qris-amount-preview"
-                  className="text-sm text-muted-foreground"
-                >
-                  QRIS dibuat untuk nominal {formattedAmount}.
-                </p>
-                {error ? (
-                  <p id="qris-error" role="alert" className="text-sm text-destructive">
-                    {error}
-                  </p>
-                ) : null}
+              <div className="grid grid-cols-2 gap-2">
+                {PRESET_AMOUNTS.map((preset) => (
+                  <Button
+                    key={preset}
+                    type="button"
+                    variant={amountValue === preset ? "default" : "outline"}
+                    size="sm"
+                    className="h-9 rounded-[4px]"
+                    onClick={() => setAmount(preset.toString())}
+                    aria-pressed={amountValue === preset}
+                  >
+                    {formatRupiah(preset)}
+                  </Button>
+                ))}
               </div>
 
-              <Button
-                type="button"
-                className="h-11 w-full rounded-[4px]"
-                disabled={!qrDataUrl || generating}
-                onClick={downloadQris}
+              <p
+                id="qris-amount-preview"
+                className="text-sm text-muted-foreground"
               >
-                <Download className="mr-2 size-4" aria-hidden="true" />
-                Unduh QRIS
-              </Button>
+                QRIS generated for {formattedAmount}.
+              </p>
+              {error ? (
+                <p id="qris-error" role="alert" className="text-sm text-destructive">
+                  {error}
+                </p>
+              ) : null}
             </div>
 
-            <div className="flex flex-col items-center justify-center gap-4 rounded-lg border border-border bg-background p-5">
-              <div className="flex aspect-square w-full max-w-[320px] items-center justify-center rounded-lg border border-border bg-card p-3">
+            <div className="rounded-lg border border-border bg-background p-4">
+              <div className="flex items-center justify-between gap-3 text-sm">
+                <span className="font-medium">Scan QRIS</span>
+                <span className="rounded-[4px] bg-primary/10 px-2 py-1 font-mono text-xs font-semibold text-primary">
+                  {formattedAmount}
+                </span>
+              </div>
+              <div className="mt-4 flex justify-center">
+                <div className="flex aspect-square w-full max-w-[280px] items-center justify-center rounded-lg border border-border bg-card p-3">
                 {generating ? (
                   <div className="text-center text-sm text-muted-foreground">
-                    Membuat QRIS...
+                    Generating QRIS...
                   </div>
                 ) : qrDataUrl ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
                     src={qrDataUrl}
-                    alt={`QRIS donasi ${formattedAmount}`}
+                    alt={`Donation QRIS for ${formattedAmount}`}
                     className="h-full w-full object-contain"
                   />
                 ) : (
                   <div className="flex flex-col items-center gap-3 text-center text-sm text-muted-foreground">
                     <QrCode className="size-12" aria-hidden="true" />
-                    Isi nominal untuk membuat QRIS.
+                    Enter an amount to generate QRIS.
                   </div>
                 )}
-              </div>
-
-              <div className="w-full rounded-lg border border-border bg-card p-4 text-sm leading-6 text-muted-foreground">
-                <div className="mb-2 flex items-center gap-2 font-semibold text-foreground">
-                  <ShieldCheck className="size-4 text-primary" aria-hidden="true" />
-                  Cek sebelum bayar
                 </div>
-                Pastikan aplikasi pembayaran menampilkan nominal yang sama dan
-                tidak pernah membagikan PIN, OTP, atau kata sandi ke siapa pun.
+              </div>
+            </div>
+
+            <Button
+              type="button"
+              className="h-11 w-full rounded-[4px]"
+              disabled={!qrDataUrl || generating}
+              onClick={downloadQris}
+            >
+              <Download className="mr-2 size-4" aria-hidden="true" />
+              Download QRIS
+            </Button>
+
+            <div className="flex gap-3 rounded-lg border border-primary/20 bg-primary/5 p-3 text-sm leading-6 text-muted-foreground">
+              <ShieldCheck className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden="true" />
+              <div>
+                <div className="font-semibold text-foreground">Check before paying</div>
+                Make sure your payment app shows the same amount, and never
+                share your PIN, OTP, or password with anyone.
               </div>
             </div>
           </div>

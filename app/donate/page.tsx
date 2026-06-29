@@ -4,9 +4,9 @@ import { DonationPage } from "@/components/donation-page";
 import { APP_NAME } from "@/lib/branding";
 
 export const metadata: Metadata = {
-  title: `Donasi - ${APP_NAME}`,
+  title: `Donate - ${APP_NAME}`,
   description:
-    "Halaman donasi resmi untuk mendukung Malpitools melalui transfer bank, e-wallet, atau QRIS.",
+    "Official donation page for supporting Malpitools through bank transfer, e-wallet, or QRIS.",
 };
 
 export default function Donate() {

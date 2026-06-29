@@ -46,7 +46,7 @@ export function AppHeader() {
       ) : pathname === "/donate" ? (
         <div className="flex items-center gap-2">
           <HeartHandshake className="size-4 text-primary" />
-          <h1 className="text-sm font-semibold">Donasi</h1>
+          <h1 className="text-sm font-semibold">Donate</h1>
         </div>
       ) : (
         <div className="flex items-center gap-2">
