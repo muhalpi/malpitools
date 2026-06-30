@@ -103,10 +103,10 @@ export function SocialCropperTool() {
     return { width: imageSize.height * aspectRatio, height: imageSize.height };
   }, [imageSize, aspectRatio]);
 
-  useEffect(() => {
+  const resetCrop = useCallback(() => {
     setCropOffset({ x: 0, y: 0 });
     setCroppedImage(null);
-  }, [selectedPlatform, selectedRatio]);
+  }, []);
 
   const constrainOffset = useCallback(
     (offset: { x: number; y: number }) => {
@@ -296,7 +296,7 @@ export function SocialCropperTool() {
             {/* Platform */}
             <div className="space-y-2">
               <label className="text-sm font-medium text-muted-foreground">Platform</label>
-              <Tabs value={String(selectedPlatform)} onValueChange={(v) => { setSelectedPlatform(Number(v)); setSelectedRatio(0); }}>
+              <Tabs value={String(selectedPlatform)} onValueChange={(v) => { setSelectedPlatform(Number(v)); setSelectedRatio(0); resetCrop(); }}>
                 <TabsList>
                   {platforms.map((p, i) => (
                     <TabsTrigger key={p.name} value={String(i)}>{p.name}</TabsTrigger>
@@ -308,7 +308,7 @@ export function SocialCropperTool() {
             {/* Aspect Ratio */}
             <div className="space-y-2">
               <label className="text-sm font-medium text-muted-foreground">Ratio</label>
-              <Tabs value={String(selectedRatio)} onValueChange={(v) => setSelectedRatio(Number(v))}>
+              <Tabs value={String(selectedRatio)} onValueChange={(v) => { setSelectedRatio(Number(v)); resetCrop(); }}>
                 <TabsList className="flex-wrap h-auto gap-1">
                   {platforms[selectedPlatform].ratios.map((ratio, i) => (
                     <TabsTrigger key={ratio.name} value={String(i)} className="text-xs">

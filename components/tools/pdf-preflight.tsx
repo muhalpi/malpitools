@@ -32,6 +32,7 @@ import {
   decodePDFRawStream,
 } from "pdf-lib";
 import { useFilePaste } from "@/hooks/use-file-paste";
+import { readPdfBytes } from "@/lib/pdf-tools";
 // pdf.js must be imported dynamically to avoid DOMMatrix errors during SSG
 type PDFDocumentProxy = import("pdfjs-dist").PDFDocumentProxy;
 
@@ -893,36 +894,15 @@ export function PdfPreflightTool() {
 
   // ---- File handling ----
 
-  const validateAndLoadFile = useCallback((candidate: File) => {
+  const validateAndLoadFile = useCallback(async (candidate: File) => {
     setError(null);
 
-    if (candidate.type && candidate.type !== "application/pdf") {
-      setError("Please upload a PDF file.");
-      return;
+    try {
+      const parsed = await readPdfBytes(candidate);
+      setFile({ name: parsed.name, size: parsed.size, buffer: parsed.buffer });
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to read the file. Please try again.");
     }
-
-    if (!candidate.name.toLowerCase().endsWith(".pdf")) {
-      setError("Please upload a file with a .pdf extension.");
-      return;
-    }
-
-    const reader = new FileReader();
-    reader.onload = () => {
-      const buffer = reader.result as ArrayBuffer;
-
-      const header = new Uint8Array(buffer.slice(0, 5));
-      const magic = String.fromCharCode(...header);
-      if (!magic.startsWith("%PDF")) {
-        setError("The file does not appear to be a valid PDF.");
-        return;
-      }
-
-      setFile({ name: candidate.name, size: candidate.size, buffer });
-    };
-    reader.onerror = () => {
-      setError("Failed to read the file. Please try again.");
-    };
-    reader.readAsArrayBuffer(candidate);
   }, []);
 
   const handleDrop = useCallback(
@@ -930,7 +910,7 @@ export function PdfPreflightTool() {
       e.preventDefault();
       setIsDragActive(false);
       const dropped = e.dataTransfer.files[0];
-      if (dropped) validateAndLoadFile(dropped);
+      if (dropped) void validateAndLoadFile(dropped);
     },
     [validateAndLoadFile]
   );
@@ -948,7 +928,7 @@ export function PdfPreflightTool() {
   const handleFileSelect = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const selected = e.target.files?.[0];
-      if (selected) validateAndLoadFile(selected);
+      if (selected) void validateAndLoadFile(selected);
       if (fileInputRef.current) fileInputRef.current.value = "";
     },
     [validateAndLoadFile]

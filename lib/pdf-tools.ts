@@ -8,6 +8,21 @@ export const MAX_PDF_PAGES = 500;
 
 let pdfjsPromise: Promise<typeof import("pdfjs-dist")> | null = null;
 
+const PDF_MIME_TYPES = new Set([
+  "application/pdf",
+  "application/x-pdf",
+  "application/acrobat",
+  "application/vnd.pdf",
+  "text/pdf",
+  "text/x-pdf",
+]);
+
+const GENERIC_FILE_MIME_TYPES = new Set([
+  "",
+  "application/octet-stream",
+  "binary/octet-stream",
+]);
+
 export function getPdfJs() {
   if (!pdfjsPromise) {
     pdfjsPromise = import("pdfjs-dist").then((mod) => {
@@ -26,11 +41,11 @@ export function formatFileSize(bytes: number): string {
 
 export function isPdfFile(file: File): boolean {
   const nameIsPdf = file.name.toLowerCase().endsWith(".pdf");
-  const typeIsPdf =
-    !file.type ||
-    file.type === "application/pdf" ||
-    file.type === "application/x-pdf";
-  return nameIsPdf && typeIsPdf;
+  const type = file.type.toLowerCase();
+  const typeIsPdf = PDF_MIME_TYPES.has(type);
+  const typeIsGeneric = GENERIC_FILE_MIME_TYPES.has(type);
+
+  return nameIsPdf || typeIsPdf || typeIsGeneric;
 }
 
 export function assertPdfHeader(bytes: Uint8Array): void {
@@ -51,6 +66,34 @@ export function friendlyPdfError(error: unknown): string {
   return "This PDF could not be opened. It may be corrupted or unsupported.";
 }
 
+export async function readPdfBytes(file: File): Promise<{
+  name: string;
+  size: number;
+  bytes: Uint8Array;
+  buffer: ArrayBuffer;
+}> {
+  if (!isPdfFile(file)) {
+    throw new Error("Please upload a PDF file.");
+  }
+
+  if (file.size > MAX_PDF_FILE_BYTES) {
+    throw new Error(
+      `Each PDF must be ${formatFileSize(MAX_PDF_FILE_BYTES)} or smaller.`
+    );
+  }
+
+  const buffer = await file.arrayBuffer();
+  const bytes = new Uint8Array(buffer);
+  assertPdfHeader(bytes);
+
+  return {
+    name: file.name,
+    size: file.size,
+    bytes,
+    buffer,
+  };
+}
+
 export async function getPdfPageCount(bytes: Uint8Array): Promise<number> {
   let doc: PDFDocumentProxy | null = null;
 
@@ -69,25 +112,14 @@ export async function readPdfFile(file: File): Promise<{
   bytes: Uint8Array;
   pageCount: number;
 }> {
-  if (!isPdfFile(file)) {
-    throw new Error("Please upload a PDF file.");
-  }
-
-  if (file.size > MAX_PDF_FILE_BYTES) {
-    throw new Error(
-      `Each PDF must be ${formatFileSize(MAX_PDF_FILE_BYTES)} or smaller.`
-    );
-  }
-
-  const bytes = new Uint8Array(await file.arrayBuffer());
-  assertPdfHeader(bytes);
+  const parsed = await readPdfBytes(file);
 
   try {
-    const pageCount = await getPdfPageCount(bytes);
+    const pageCount = await getPdfPageCount(parsed.bytes);
     return {
-      name: file.name,
-      size: file.size,
-      bytes,
+      name: parsed.name,
+      size: parsed.size,
+      bytes: parsed.bytes,
       pageCount,
     };
   } catch (error) {

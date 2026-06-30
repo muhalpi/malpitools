@@ -22,7 +22,6 @@ import {
   Check,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import {
@@ -43,6 +42,7 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { PDFDocument, degrees } from "pdf-lib";
+import { friendlyPdfError, readPdfBytes } from "@/lib/pdf-tools";
 import {
   PAPER_SIZES,
   IMPOSITION_LAYOUTS,
@@ -135,6 +135,7 @@ export function ImposerTool() {
   const [isDragging, setIsDragging] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
   const [generateProgress, setGenerateProgress] = useState("");
+  const [uploadError, setUploadError] = useState<string | null>(null);
   const [printGuideOpen, setPrintGuideOpen] = useState(false);
   const [layoutOpen, setLayoutOpen] = useState(false);
   const layoutListId = useId();
@@ -218,16 +219,17 @@ export function ImposerTool() {
   // ---------------------------------------------------------------------------
 
   const loadPdf = useCallback(async (file: File) => {
-    const bytes = new Uint8Array(await file.arrayBuffer());
-    setPdfBytes(bytes);
-    setPdfFileName(file.name);
+    setUploadError(null);
     pageThumbnailsRef.current.clear();
 
     try {
+      const parsed = await readPdfBytes(file);
       const pdfjs = await getPdfJs();
-      const doc = await pdfjs.getDocument({ data: bytes.slice() }).promise;
+      const doc = await pdfjs.getDocument({ data: parsed.bytes.slice() }).promise;
       // Destroy the previous document's worker transport before replacing it
       void pdfDocRef.current?.destroy();
+      setPdfBytes(parsed.bytes);
+      setPdfFileName(parsed.name);
       setPdfDoc(doc);
       setPdfPageCount(doc.numPages);
 
@@ -249,17 +251,23 @@ export function ImposerTool() {
       });
     } catch (err) {
       console.error("Failed to load PDF:", err);
+      void pdfDocRef.current?.destroy();
+      setPdfBytes(null);
+      setPdfFileName("");
+      setPdfDoc(null);
       setPdfPageCount(0);
+      setInferredPaper(null);
+      setUploadError(
+        err instanceof Error && err.message ? err.message : friendlyPdfError(err)
+      );
     }
   }, []);
 
-  useFilePaste(loadPdf, "application/pdf");
+  useFilePaste(loadPdf, ".pdf,application/pdf");
 
   const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file && file.type === "application/pdf") {
-      loadPdf(file);
-    }
+    if (file) void loadPdf(file);
     e.target.value = "";
   };
 
@@ -267,9 +275,7 @@ export function ImposerTool() {
     e.preventDefault();
     setIsDragging(false);
     const file = e.dataTransfer.files[0];
-    if (file && file.type === "application/pdf") {
-      loadPdf(file);
-    }
+    if (file) void loadPdf(file);
   };
 
   const clearPdf = () => {
@@ -279,6 +285,7 @@ export function ImposerTool() {
     void pdfDoc?.destroy();
     setPdfDoc(null);
     setInferredPaper(null);
+    setUploadError(null);
     pageThumbnailsRef.current.clear();
   };
 
@@ -601,7 +608,7 @@ export function ImposerTool() {
         <input
           ref={fileInputRef}
           type="file"
-          accept="application/pdf"
+          accept=".pdf,application/pdf"
           className="hidden"
           onChange={handleFileInput}
         />
@@ -634,6 +641,7 @@ export function ImposerTool() {
           </>
         )}
       </div>
+      {uploadError && <p className="text-sm text-destructive">{uploadError}</p>}
 
       {/* ── Configuration ─────────────────────────────────────────── */}
       <div className="space-y-4">

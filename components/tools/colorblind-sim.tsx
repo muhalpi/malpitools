@@ -175,6 +175,15 @@ export function ColorblindSimTool() {
 
   const isValidHex = (hex: string) => /^#[0-9A-Fa-f]{6}$/.test(hex);
 
+  function readFile(file: File) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      setSourceImage(e.target?.result as string);
+      setSimulatedImage(null);
+    };
+    reader.readAsDataURL(file);
+  }
+
   const handleDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault();
     const file = e.dataTransfer.files[0];
@@ -188,15 +197,6 @@ export function ColorblindSimTool() {
     if (file) {
       readFile(file);
     }
-  };
-
-  const readFile = (file: File) => {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      setSourceImage(e.target?.result as string);
-      setSimulatedImage(null);
-    };
-    reader.readAsDataURL(file);
   };
 
   useFilePaste(readFile, "image/*");

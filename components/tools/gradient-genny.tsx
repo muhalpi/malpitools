@@ -223,28 +223,24 @@ function useDeferredInput(
   parse: (draft: string) => string | null,
   onCommit: (parsed: string) => void
 ) {
-  const [draft, setDraft] = useState(value);
+  const [draft, setDraft] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    if (document.activeElement !== inputRef.current) {
-      setDraft(value);
-    }
-  }, [value]);
+  const inputValue = draft ?? value;
 
   const commit = () => {
-    const result = parse(draft);
+    const result = parse(inputValue);
     if (result !== null) {
       onCommit(result);
-      setDraft(result);
+      setDraft(null);
     } else {
-      setDraft(value);
+      setDraft(null);
     }
   };
 
   return {
     ref: inputRef,
-    value: draft,
+    value: inputValue,
+    onFocus: () => setDraft(value),
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => setDraft(e.target.value),
     onBlur: commit,
     onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => {

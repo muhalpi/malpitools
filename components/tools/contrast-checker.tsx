@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { ArrowUpDown, Wand2, Check, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -168,17 +168,10 @@ function ComplianceBadge({ pass, label }: { pass: boolean; label: string }) {
 export function ContrastCheckerTool() {
   const [background, setBackground] = useState("#1a1a2e");
   const [foreground, setForeground] = useState("#eaeaea");
-  const [ratio, setRatio] = useState<number | null>(null);
-  const [compliance, setCompliance] = useState<ComplianceResult | null>(null);
   const { notation } = useColourNotation();
 
-  useEffect(() => {
-    const r = getContrastRatio(foreground, background);
-    setRatio(r);
-    if (r) {
-      setCompliance(checkCompliance(r));
-    }
-  }, [foreground, background]);
+  const ratio = getContrastRatio(foreground, background);
+  const compliance = ratio ? checkCompliance(ratio) : null;
 
   const flipColors = useCallback(() => {
     setBackground(foreground);

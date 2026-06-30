@@ -5,7 +5,10 @@ export function useFilePaste(
   accept?: string
 ) {
   const handlerRef = useRef(handler)
-  handlerRef.current = handler
+
+  useEffect(() => {
+    handlerRef.current = handler
+  }, [handler])
 
   useEffect(() => {
     const onPaste = (e: ClipboardEvent) => {

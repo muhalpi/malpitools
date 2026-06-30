@@ -141,13 +141,15 @@ export function PaletteGennyTool() {
     if (hasInitializedFromUrl.current) return;
     const urlColors = parseColorsFromParam(getColorsFromUrl());
     if (urlColors) {
-      setColours(urlColors.map(hex => ({
-        id: generateId(),
-        hex,
-        locked: false,
-      })));
-      setLoadedFromUrl(true);
-      hasInitializedFromUrl.current = true;
+      queueMicrotask(() => {
+        setColours(urlColors.map(hex => ({
+          id: generateId(),
+          hex,
+          locked: false,
+        })));
+        setLoadedFromUrl(true);
+        hasInitializedFromUrl.current = true;
+      });
     }
   }, []);
 

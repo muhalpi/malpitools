@@ -90,7 +90,7 @@ export function MarkdownWriterTool() {
   useEffect(() => {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
-      setContent(saved);
+      queueMicrotask(() => setContent(saved));
     }
   }, []);
 

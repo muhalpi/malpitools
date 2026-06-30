@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, Suspense } from "react";
+import { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { Copy, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -199,21 +199,10 @@ function TailwindShadesInner() {
   const [baseColour, setBaseColour] = useState(colorFromUrl || "#3b82f6");
   const [colourName, setColourName] = useState("primary");
   const [mode, setMode] = useState<GenerationMode>("classic");
-  const [shades, setShades] = useState<Shade[] | null>(null);
   const [copied, setCopied] = useState<string | null>(null);
   const { notation } = useColourNotation();
 
-  // Update baseColour when URL parameter changes
-  useEffect(() => {
-    if (colorFromUrl) {
-      setBaseColour(colorFromUrl);
-    }
-  }, [colorFromUrl]);
-
-  useEffect(() => {
-    const result = generateShades(baseColour, mode);
-    setShades(result);
-  }, [baseColour, mode]);
+  const shades = generateShades(baseColour, mode);
 
   const copyValue = async (value: string, label: string) => {
     await navigator.clipboard.writeText(value);

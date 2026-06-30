@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Copy, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -186,14 +186,10 @@ function generateHarmony(baseHex: string, type: HarmonyType): ColourSwatch[] | n
 export function HarmonyGennyTool() {
   const [baseColour, setBaseColour] = useState("#3b82f6");
   const [harmonyType, setHarmonyType] = useState<HarmonyType>("complementary");
-  const [colours, setColours] = useState<ColourSwatch[] | null>(null);
   const [copied, setCopied] = useState<string | null>(null);
   const { notation } = useColourNotation();
 
-  useEffect(() => {
-    const result = generateHarmony(baseColour, harmonyType);
-    setColours(result);
-  }, [baseColour, harmonyType]);
+  const colours = generateHarmony(baseColour, harmonyType);
 
   // Pair each swatch with its position so render keys stay unique even when a
   // monochromatic harmony clamps two lightness levels to the same hex (angle is 0 for all).

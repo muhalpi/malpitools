@@ -172,7 +172,7 @@ export function TextEditorTool() {
     viewRef.current = view;
     scheduleMeasure();
     const initialText = view.state.doc.textBetween(0, view.state.doc.content.size, " ", " ").trim();
-    setWordCount(initialText ? initialText.split(/\s+/).length : 0);
+    queueMicrotask(() => setWordCount(initialText ? initialText.split(/\s+/).length : 0));
 
     const ro = new ResizeObserver(() => scheduleMeasure());
     ro.observe(view.dom);

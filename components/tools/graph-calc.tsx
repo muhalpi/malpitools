@@ -353,7 +353,10 @@ export function GraphCalcTool() {
 
   // Use a ref to always have current bounds in the native wheel listener
   const boundsRef = useRef({ xMin, xMax, yMin, yMax });
-  boundsRef.current = { xMin, xMax, yMin, yMax };
+
+  useEffect(() => {
+    boundsRef.current = { xMin, xMax, yMin, yMax };
+  }, [xMin, xMax, yMin, yMax]);
 
   // Attach a native (non-passive) wheel listener so preventDefault() works
   useEffect(() => {
