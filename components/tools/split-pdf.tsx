@@ -28,7 +28,7 @@ interface SplitPdfFile {
   bytes: Uint8Array;
 }
 
-type PDFDocumentProxy = import("pdfjs-dist").PDFDocumentProxy;
+type PDFDocumentProxy = import("pdfjs-dist/legacy/build/pdf.mjs").PDFDocumentProxy;
 
 const INITIAL_THUMBNAIL_COUNT = 20;
 const THUMBNAIL_BATCH_SIZE = 20;

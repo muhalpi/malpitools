@@ -16,7 +16,7 @@ const eslintConfig = defineConfig([
     "lib/pandoc/pandoc-core.js",
     // Vendored/minified browser assets — not ours to lint.
     "public/lib/imagetracer_v1.2.6.js",
-    "public/pdf.worker.min.mjs",
+    "public/pdf.worker*.mjs",
   ]),
 ]);
 

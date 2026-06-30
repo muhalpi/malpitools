@@ -1,4 +1,4 @@
-import type { PDFDocumentProxy } from "pdfjs-dist";
+import type { PDFDocumentProxy } from "pdfjs-dist/legacy/build/pdf.mjs";
 
 export const MAX_PDF_FILE_BYTES = 100 * 1024 * 1024;
 export const MAX_TOTAL_PDF_BYTES = 250 * 1024 * 1024;
@@ -6,7 +6,7 @@ export const LARGE_PDF_OPERATION_BYTES = 50 * 1024 * 1024;
 export const MAX_PDF_FILES = 20;
 export const MAX_PDF_PAGES = 500;
 
-let pdfjsPromise: Promise<typeof import("pdfjs-dist")> | null = null;
+let pdfjsPromise: Promise<typeof import("pdfjs-dist/legacy/build/pdf.mjs")> | null = null;
 
 const PDF_MIME_TYPES = new Set([
   "application/pdf",
@@ -25,8 +25,8 @@ const GENERIC_FILE_MIME_TYPES = new Set([
 
 export function getPdfJs() {
   if (!pdfjsPromise) {
-    pdfjsPromise = import("pdfjs-dist").then((mod) => {
-      mod.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.mjs";
+    pdfjsPromise = import("pdfjs-dist/legacy/build/pdf.mjs").then((mod) => {
+      mod.GlobalWorkerOptions.workerSrc = "/pdf.worker.legacy.min.mjs";
       return mod;
     });
   }

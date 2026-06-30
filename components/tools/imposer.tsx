@@ -62,13 +62,13 @@ import { useFilePaste } from "@/hooks/use-file-paste";
 // pdfjs-dist — dynamic import to avoid SSG DOMMatrix errors
 // ---------------------------------------------------------------------------
 
-type PDFDocumentProxy = import("pdfjs-dist").PDFDocumentProxy;
+type PDFDocumentProxy = import("pdfjs-dist/legacy/build/pdf.mjs").PDFDocumentProxy;
 
-let pdfjsPromise: Promise<typeof import("pdfjs-dist")> | null = null;
+let pdfjsPromise: Promise<typeof import("pdfjs-dist/legacy/build/pdf.mjs")> | null = null;
 function getPdfJs() {
   if (!pdfjsPromise) {
-    pdfjsPromise = import("pdfjs-dist").then((mod) => {
-      mod.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.mjs";
+    pdfjsPromise = import("pdfjs-dist/legacy/build/pdf.mjs").then((mod) => {
+      mod.GlobalWorkerOptions.workerSrc = "/pdf.worker.legacy.min.mjs";
       return mod;
     });
   }

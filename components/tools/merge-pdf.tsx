@@ -43,7 +43,7 @@ import {
 } from "@/lib/pdf-tools";
 import { cn } from "@/lib/utils";
 
-type PDFDocumentProxy = import("pdfjs-dist").PDFDocumentProxy;
+type PDFDocumentProxy = import("pdfjs-dist/legacy/build/pdf.mjs").PDFDocumentProxy;
 
 interface SourceColour {
   bg: string;
